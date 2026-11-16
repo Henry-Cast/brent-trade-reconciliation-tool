@@ -2,6 +2,8 @@
 
 **Built by Henry Cast**
 
+**Live demo:** https://brent-trade-reconciliation.streamlit.app
+
 A teaching demonstration for checking a desk's trade blotter against broker confirmations before settlement. **All supplied trades, people and firms are fictional.**
 
 **Prices are simulated, anchored to published Brent spot prices.**[1]
@@ -14,7 +16,7 @@ Finding these differences before settlement gives operations time to ask the bro
 
 ## Try it
 
-After starting the app using the instructions below, choose either:
+Open the live demo above, or start the app locally using the instructions below. Then choose either:
 
 - **Upload files:** use `sample_data/clean/blotter.csv` and `sample_data/clean/confirmations.csv`. This small pair contains ten clean trades and their ten confirmations. Click **Reconcile uploaded files**; the expected result is ten established pairs and no exceptions. Uploads do not have a known-answer scorecard, even when the files originally came from this generator.
 - **Generate data:** leave the seed at **1** and click **Generate new dataset**. This creates a fictional example with deliberately planted disagreements and harmless differences. Use development seeds 1–5 when experimenting. A generated run offers a **Scorecard** page because the generator supplied known answers for that session.
