@@ -1,0 +1,274 @@
+dataset,split,case_type,found,missed,false_alarms,mislabelled,precision,recall,correctly_quiet
+seed_1,development,PRICE,6,0,0,0,1,1,0
+seed_1,development,QUANTITY,5,0,0,0,1,1,0
+seed_1,development,SIDE,3,0,0,0,1,1,0
+seed_1,development,CONTRACT_MONTH,4,0,0,0,1,1,0
+seed_1,development,UNIT_ERROR,2,0,0,0,1,1,0
+seed_1,development,MISSING_CONFIRMATION,4,0,0,0,1,1,0
+seed_1,development,UNKNOWN_CONFIRMATION,3,0,0,0,1,1,0
+seed_1,development,DUPLICATE,3,0,0,0,1,1,0
+seed_1,development,AMBIGUOUS,2,0,0,0,1,1,0
+seed_1,development,EQUIVALENT_UNITS,0,0,0,0,N/A,N/A,5
+seed_1,development,COUNTERPARTY_VARIANT,0,0,0,0,N/A,N/A,4
+seed_1,development,ROUNDING,0,0,0,0,N/A,N/A,3
+seed_1,development,MISSING_TRADE_REF,0,0,0,0,N/A,N/A,3
+seed_2,development,PRICE,6,0,0,0,1,1,0
+seed_2,development,QUANTITY,5,0,0,0,1,1,0
+seed_2,development,SIDE,3,0,0,0,1,1,0
+seed_2,development,CONTRACT_MONTH,4,0,0,0,1,1,0
+seed_2,development,UNIT_ERROR,2,0,0,0,1,1,0
+seed_2,development,MISSING_CONFIRMATION,4,0,0,0,1,1,0
+seed_2,development,UNKNOWN_CONFIRMATION,3,0,0,0,1,1,0
+seed_2,development,DUPLICATE,3,0,0,0,1,1,0
+seed_2,development,AMBIGUOUS,2,0,0,0,1,1,0
+seed_2,development,EQUIVALENT_UNITS,0,0,0,0,N/A,N/A,5
+seed_2,development,COUNTERPARTY_VARIANT,0,0,0,0,N/A,N/A,4
+seed_2,development,ROUNDING,0,0,0,0,N/A,N/A,3
+seed_2,development,MISSING_TRADE_REF,0,0,0,0,N/A,N/A,3
+seed_3,development,PRICE,6,0,0,0,1,1,0
+seed_3,development,QUANTITY,5,0,0,0,1,1,0
+seed_3,development,SIDE,3,0,0,0,1,1,0
+seed_3,development,CONTRACT_MONTH,4,0,0,0,1,1,0
+seed_3,development,UNIT_ERROR,2,0,0,0,1,1,0
+seed_3,development,MISSING_CONFIRMATION,4,0,0,0,1,1,0
+seed_3,development,UNKNOWN_CONFIRMATION,3,0,0,0,1,1,0
+seed_3,development,DUPLICATE,3,0,0,0,1,1,0
+seed_3,development,AMBIGUOUS,2,0,0,0,1,1,0
+seed_3,development,EQUIVALENT_UNITS,0,0,0,0,N/A,N/A,5
+seed_3,development,COUNTERPARTY_VARIANT,0,0,0,0,N/A,N/A,4
+seed_3,development,ROUNDING,0,0,0,0,N/A,N/A,3
+seed_3,development,MISSING_TRADE_REF,0,0,0,0,N/A,N/A,3
+seed_4,development,PRICE,6,0,0,0,1,1,0
+seed_4,development,QUANTITY,5,0,0,0,1,1,0
+seed_4,development,SIDE,3,0,0,0,1,1,0
+seed_4,development,CONTRACT_MONTH,4,0,0,0,1,1,0
+seed_4,development,UNIT_ERROR,2,0,0,0,1,1,0
+seed_4,development,MISSING_CONFIRMATION,4,0,0,0,1,1,0
+seed_4,development,UNKNOWN_CONFIRMATION,3,0,0,0,1,1,0
+seed_4,development,DUPLICATE,3,0,0,0,1,1,0
+seed_4,development,AMBIGUOUS,2,0,0,0,1,1,0
+seed_4,development,EQUIVALENT_UNITS,0,0,0,0,N/A,N/A,5
+seed_4,development,COUNTERPARTY_VARIANT,0,0,0,0,N/A,N/A,4
+seed_4,development,ROUNDING,0,0,0,0,N/A,N/A,3
+seed_4,development,MISSING_TRADE_REF,0,0,0,0,N/A,N/A,3
+seed_5,development,PRICE,6,0,0,0,1,1,0
+seed_5,development,QUANTITY,5,0,0,0,1,1,0
+seed_5,development,SIDE,3,0,0,0,1,1,0
+seed_5,development,CONTRACT_MONTH,4,0,0,0,1,1,0
+seed_5,development,UNIT_ERROR,2,0,0,0,1,1,0
+seed_5,development,MISSING_CONFIRMATION,4,0,0,0,1,1,0
+seed_5,development,UNKNOWN_CONFIRMATION,3,0,0,0,1,1,0
+seed_5,development,DUPLICATE,3,0,0,0,1,1,0
+seed_5,development,AMBIGUOUS,2,0,0,0,1,1,0
+seed_5,development,EQUIVALENT_UNITS,0,0,0,0,N/A,N/A,5
+seed_5,development,COUNTERPARTY_VARIANT,0,0,0,0,N/A,N/A,4
+seed_5,development,ROUNDING,0,0,0,0,N/A,N/A,3
+seed_5,development,MISSING_TRADE_REF,0,0,0,0,N/A,N/A,3
+clean,clean control,PRICE,0,0,0,0,N/A,N/A,0
+clean,clean control,QUANTITY,0,0,0,0,N/A,N/A,0
+clean,clean control,SIDE,0,0,0,0,N/A,N/A,0
+clean,clean control,CONTRACT_MONTH,0,0,0,0,N/A,N/A,0
+clean,clean control,UNIT_ERROR,0,0,0,0,N/A,N/A,0
+clean,clean control,MISSING_CONFIRMATION,0,0,0,0,N/A,N/A,0
+clean,clean control,UNKNOWN_CONFIRMATION,0,0,0,0,N/A,N/A,0
+clean,clean control,DUPLICATE,0,0,0,0,N/A,N/A,0
+clean,clean control,AMBIGUOUS,0,0,0,0,N/A,N/A,0
+clean,clean control,EQUIVALENT_UNITS,0,0,0,0,N/A,N/A,0
+clean,clean control,COUNTERPARTY_VARIANT,0,0,0,0,N/A,N/A,0
+clean,clean control,ROUNDING,0,0,0,0,N/A,N/A,0
+clean,clean control,MISSING_TRADE_REF,0,0,0,0,N/A,N/A,0
+seed_6,reserved evaluation,PRICE,6,0,0,0,1,1,0
+seed_6,reserved evaluation,QUANTITY,5,0,0,0,1,1,0
+seed_6,reserved evaluation,SIDE,3,0,0,0,1,1,0
+seed_6,reserved evaluation,CONTRACT_MONTH,4,0,0,0,1,1,0
+seed_6,reserved evaluation,UNIT_ERROR,2,0,0,0,1,1,0
+seed_6,reserved evaluation,MISSING_CONFIRMATION,4,0,0,0,1,1,0
+seed_6,reserved evaluation,UNKNOWN_CONFIRMATION,3,0,0,0,1,1,0
+seed_6,reserved evaluation,DUPLICATE,3,0,0,0,1,1,0
+seed_6,reserved evaluation,AMBIGUOUS,2,0,0,0,1,1,0
+seed_6,reserved evaluation,EQUIVALENT_UNITS,0,0,0,0,N/A,N/A,5
+seed_6,reserved evaluation,COUNTERPARTY_VARIANT,0,0,0,0,N/A,N/A,4
+seed_6,reserved evaluation,ROUNDING,0,0,0,0,N/A,N/A,3
+seed_6,reserved evaluation,MISSING_TRADE_REF,0,0,0,0,N/A,N/A,3
+seed_7,reserved evaluation,PRICE,6,0,0,0,1,1,0
+seed_7,reserved evaluation,QUANTITY,5,0,0,0,1,1,0
+seed_7,reserved evaluation,SIDE,3,0,0,0,1,1,0
+seed_7,reserved evaluation,CONTRACT_MONTH,4,0,0,0,1,1,0
+seed_7,reserved evaluation,UNIT_ERROR,2,0,0,0,1,1,0
+seed_7,reserved evaluation,MISSING_CONFIRMATION,4,0,0,0,1,1,0
+seed_7,reserved evaluation,UNKNOWN_CONFIRMATION,3,0,0,0,1,1,0
+seed_7,reserved evaluation,DUPLICATE,3,0,0,0,1,1,0
+seed_7,reserved evaluation,AMBIGUOUS,2,0,0,0,1,1,0
+seed_7,reserved evaluation,EQUIVALENT_UNITS,0,0,0,0,N/A,N/A,5
+seed_7,reserved evaluation,COUNTERPARTY_VARIANT,0,0,0,0,N/A,N/A,4
+seed_7,reserved evaluation,ROUNDING,0,0,0,0,N/A,N/A,3
+seed_7,reserved evaluation,MISSING_TRADE_REF,0,0,0,0,N/A,N/A,3
+seed_8,reserved evaluation,PRICE,6,0,0,0,1,1,0
+seed_8,reserved evaluation,QUANTITY,5,0,0,0,1,1,0
+seed_8,reserved evaluation,SIDE,3,0,0,0,1,1,0
+seed_8,reserved evaluation,CONTRACT_MONTH,4,0,0,0,1,1,0
+seed_8,reserved evaluation,UNIT_ERROR,2,0,0,0,1,1,0
+seed_8,reserved evaluation,MISSING_CONFIRMATION,4,0,0,0,1,1,0
+seed_8,reserved evaluation,UNKNOWN_CONFIRMATION,3,0,0,0,1,1,0
+seed_8,reserved evaluation,DUPLICATE,3,0,0,0,1,1,0
+seed_8,reserved evaluation,AMBIGUOUS,2,0,0,0,1,1,0
+seed_8,reserved evaluation,EQUIVALENT_UNITS,0,0,0,0,N/A,N/A,5
+seed_8,reserved evaluation,COUNTERPARTY_VARIANT,0,0,0,0,N/A,N/A,4
+seed_8,reserved evaluation,ROUNDING,0,0,0,0,N/A,N/A,3
+seed_8,reserved evaluation,MISSING_TRADE_REF,0,0,0,0,N/A,N/A,3
+seed_9,reserved evaluation,PRICE,6,0,0,0,1,1,0
+seed_9,reserved evaluation,QUANTITY,5,0,0,0,1,1,0
+seed_9,reserved evaluation,SIDE,3,0,0,0,1,1,0
+seed_9,reserved evaluation,CONTRACT_MONTH,4,0,0,0,1,1,0
+seed_9,reserved evaluation,UNIT_ERROR,2,0,0,0,1,1,0
+seed_9,reserved evaluation,MISSING_CONFIRMATION,4,0,0,0,1,1,0
+seed_9,reserved evaluation,UNKNOWN_CONFIRMATION,3,0,0,0,1,1,0
+seed_9,reserved evaluation,DUPLICATE,3,0,0,0,1,1,0
+seed_9,reserved evaluation,AMBIGUOUS,2,0,0,0,1,1,0
+seed_9,reserved evaluation,EQUIVALENT_UNITS,0,0,0,0,N/A,N/A,5
+seed_9,reserved evaluation,COUNTERPARTY_VARIANT,0,0,0,0,N/A,N/A,4
+seed_9,reserved evaluation,ROUNDING,0,0,0,0,N/A,N/A,3
+seed_9,reserved evaluation,MISSING_TRADE_REF,0,0,0,0,N/A,N/A,3
+seed_10,reserved evaluation,PRICE,6,0,0,0,1,1,0
+seed_10,reserved evaluation,QUANTITY,5,0,0,0,1,1,0
+seed_10,reserved evaluation,SIDE,3,0,0,0,1,1,0
+seed_10,reserved evaluation,CONTRACT_MONTH,4,0,0,0,1,1,0
+seed_10,reserved evaluation,UNIT_ERROR,2,0,0,0,1,1,0
+seed_10,reserved evaluation,MISSING_CONFIRMATION,4,0,0,0,1,1,0
+seed_10,reserved evaluation,UNKNOWN_CONFIRMATION,3,0,0,0,1,1,0
+seed_10,reserved evaluation,DUPLICATE,3,0,0,0,1,1,0
+seed_10,reserved evaluation,AMBIGUOUS,2,0,0,0,1,1,0
+seed_10,reserved evaluation,EQUIVALENT_UNITS,0,0,0,0,N/A,N/A,5
+seed_10,reserved evaluation,COUNTERPARTY_VARIANT,0,0,0,0,N/A,N/A,4
+seed_10,reserved evaluation,ROUNDING,0,0,0,0,N/A,N/A,3
+seed_10,reserved evaluation,MISSING_TRADE_REF,0,0,0,0,N/A,N/A,3
+seed_11,reserved evaluation,PRICE,6,0,0,0,1,1,0
+seed_11,reserved evaluation,QUANTITY,5,0,0,0,1,1,0
+seed_11,reserved evaluation,SIDE,3,0,0,0,1,1,0
+seed_11,reserved evaluation,CONTRACT_MONTH,4,0,0,0,1,1,0
+seed_11,reserved evaluation,UNIT_ERROR,2,0,0,0,1,1,0
+seed_11,reserved evaluation,MISSING_CONFIRMATION,4,0,0,0,1,1,0
+seed_11,reserved evaluation,UNKNOWN_CONFIRMATION,3,0,0,0,1,1,0
+seed_11,reserved evaluation,DUPLICATE,3,0,0,0,1,1,0
+seed_11,reserved evaluation,AMBIGUOUS,2,0,0,0,1,1,0
+seed_11,reserved evaluation,EQUIVALENT_UNITS,0,0,0,0,N/A,N/A,5
+seed_11,reserved evaluation,COUNTERPARTY_VARIANT,0,0,0,0,N/A,N/A,4
+seed_11,reserved evaluation,ROUNDING,0,0,0,0,N/A,N/A,3
+seed_11,reserved evaluation,MISSING_TRADE_REF,0,0,0,0,N/A,N/A,3
+seed_12,reserved evaluation,PRICE,6,0,0,0,1,1,0
+seed_12,reserved evaluation,QUANTITY,5,0,0,0,1,1,0
+seed_12,reserved evaluation,SIDE,3,0,0,0,1,1,0
+seed_12,reserved evaluation,CONTRACT_MONTH,4,0,0,0,1,1,0
+seed_12,reserved evaluation,UNIT_ERROR,2,0,0,0,1,1,0
+seed_12,reserved evaluation,MISSING_CONFIRMATION,4,0,0,0,1,1,0
+seed_12,reserved evaluation,UNKNOWN_CONFIRMATION,3,0,0,0,1,1,0
+seed_12,reserved evaluation,DUPLICATE,3,0,0,0,1,1,0
+seed_12,reserved evaluation,AMBIGUOUS,2,0,0,0,1,1,0
+seed_12,reserved evaluation,EQUIVALENT_UNITS,0,0,0,0,N/A,N/A,5
+seed_12,reserved evaluation,COUNTERPARTY_VARIANT,0,0,0,0,N/A,N/A,4
+seed_12,reserved evaluation,ROUNDING,0,0,0,0,N/A,N/A,3
+seed_12,reserved evaluation,MISSING_TRADE_REF,0,0,0,0,N/A,N/A,3
+seed_13,reserved evaluation,PRICE,6,0,0,0,1,1,0
+seed_13,reserved evaluation,QUANTITY,5,0,0,0,1,1,0
+seed_13,reserved evaluation,SIDE,3,0,0,0,1,1,0
+seed_13,reserved evaluation,CONTRACT_MONTH,4,0,0,0,1,1,0
+seed_13,reserved evaluation,UNIT_ERROR,2,0,0,0,1,1,0
+seed_13,reserved evaluation,MISSING_CONFIRMATION,4,0,0,0,1,1,0
+seed_13,reserved evaluation,UNKNOWN_CONFIRMATION,3,0,0,0,1,1,0
+seed_13,reserved evaluation,DUPLICATE,3,0,0,0,1,1,0
+seed_13,reserved evaluation,AMBIGUOUS,2,0,0,0,1,1,0
+seed_13,reserved evaluation,EQUIVALENT_UNITS,0,0,0,0,N/A,N/A,5
+seed_13,reserved evaluation,COUNTERPARTY_VARIANT,0,0,0,0,N/A,N/A,4
+seed_13,reserved evaluation,ROUNDING,0,0,0,0,N/A,N/A,3
+seed_13,reserved evaluation,MISSING_TRADE_REF,0,0,0,0,N/A,N/A,3
+seed_14,reserved evaluation,PRICE,6,0,0,0,1,1,0
+seed_14,reserved evaluation,QUANTITY,5,0,0,0,1,1,0
+seed_14,reserved evaluation,SIDE,3,0,0,0,1,1,0
+seed_14,reserved evaluation,CONTRACT_MONTH,4,0,0,0,1,1,0
+seed_14,reserved evaluation,UNIT_ERROR,2,0,0,0,1,1,0
+seed_14,reserved evaluation,MISSING_CONFIRMATION,4,0,0,0,1,1,0
+seed_14,reserved evaluation,UNKNOWN_CONFIRMATION,3,0,0,0,1,1,0
+seed_14,reserved evaluation,DUPLICATE,3,0,0,0,1,1,0
+seed_14,reserved evaluation,AMBIGUOUS,2,0,0,0,1,1,0
+seed_14,reserved evaluation,EQUIVALENT_UNITS,0,0,0,0,N/A,N/A,5
+seed_14,reserved evaluation,COUNTERPARTY_VARIANT,0,0,0,0,N/A,N/A,4
+seed_14,reserved evaluation,ROUNDING,0,0,0,0,N/A,N/A,3
+seed_14,reserved evaluation,MISSING_TRADE_REF,0,0,0,0,N/A,N/A,3
+seed_15,reserved evaluation,PRICE,6,0,0,0,1,1,0
+seed_15,reserved evaluation,QUANTITY,5,0,0,0,1,1,0
+seed_15,reserved evaluation,SIDE,3,0,0,0,1,1,0
+seed_15,reserved evaluation,CONTRACT_MONTH,4,0,0,0,1,1,0
+seed_15,reserved evaluation,UNIT_ERROR,2,0,0,0,1,1,0
+seed_15,reserved evaluation,MISSING_CONFIRMATION,4,0,0,0,1,1,0
+seed_15,reserved evaluation,UNKNOWN_CONFIRMATION,3,0,0,0,1,1,0
+seed_15,reserved evaluation,DUPLICATE,3,0,0,0,1,1,0
+seed_15,reserved evaluation,AMBIGUOUS,2,0,0,0,1,1,0
+seed_15,reserved evaluation,EQUIVALENT_UNITS,0,0,0,0,N/A,N/A,5
+seed_15,reserved evaluation,COUNTERPARTY_VARIANT,0,0,0,0,N/A,N/A,4
+seed_15,reserved evaluation,ROUNDING,0,0,0,0,N/A,N/A,3
+seed_15,reserved evaluation,MISSING_TRADE_REF,0,0,0,0,N/A,N/A,3
+seed_16,reserved evaluation,PRICE,6,0,0,0,1,1,0
+seed_16,reserved evaluation,QUANTITY,5,0,0,0,1,1,0
+seed_16,reserved evaluation,SIDE,3,0,0,0,1,1,0
+seed_16,reserved evaluation,CONTRACT_MONTH,4,0,0,0,1,1,0
+seed_16,reserved evaluation,UNIT_ERROR,2,0,0,0,1,1,0
+seed_16,reserved evaluation,MISSING_CONFIRMATION,4,0,0,0,1,1,0
+seed_16,reserved evaluation,UNKNOWN_CONFIRMATION,3,0,0,0,1,1,0
+seed_16,reserved evaluation,DUPLICATE,3,0,0,0,1,1,0
+seed_16,reserved evaluation,AMBIGUOUS,2,0,0,0,1,1,0
+seed_16,reserved evaluation,EQUIVALENT_UNITS,0,0,0,0,N/A,N/A,5
+seed_16,reserved evaluation,COUNTERPARTY_VARIANT,0,0,0,0,N/A,N/A,4
+seed_16,reserved evaluation,ROUNDING,0,0,0,0,N/A,N/A,3
+seed_16,reserved evaluation,MISSING_TRADE_REF,0,0,0,0,N/A,N/A,3
+seed_17,reserved evaluation,PRICE,6,0,0,0,1,1,0
+seed_17,reserved evaluation,QUANTITY,5,0,0,0,1,1,0
+seed_17,reserved evaluation,SIDE,3,0,0,0,1,1,0
+seed_17,reserved evaluation,CONTRACT_MONTH,4,0,0,0,1,1,0
+seed_17,reserved evaluation,UNIT_ERROR,2,0,0,0,1,1,0
+seed_17,reserved evaluation,MISSING_CONFIRMATION,4,0,0,0,1,1,0
+seed_17,reserved evaluation,UNKNOWN_CONFIRMATION,3,0,0,0,1,1,0
+seed_17,reserved evaluation,DUPLICATE,3,0,0,0,1,1,0
+seed_17,reserved evaluation,AMBIGUOUS,2,0,0,0,1,1,0
+seed_17,reserved evaluation,EQUIVALENT_UNITS,0,0,0,0,N/A,N/A,5
+seed_17,reserved evaluation,COUNTERPARTY_VARIANT,0,0,0,0,N/A,N/A,4
+seed_17,reserved evaluation,ROUNDING,0,0,0,0,N/A,N/A,3
+seed_17,reserved evaluation,MISSING_TRADE_REF,0,0,0,0,N/A,N/A,3
+seed_18,reserved evaluation,PRICE,6,0,0,0,1,1,0
+seed_18,reserved evaluation,QUANTITY,5,0,0,0,1,1,0
+seed_18,reserved evaluation,SIDE,3,0,0,0,1,1,0
+seed_18,reserved evaluation,CONTRACT_MONTH,4,0,0,0,1,1,0
+seed_18,reserved evaluation,UNIT_ERROR,2,0,0,0,1,1,0
+seed_18,reserved evaluation,MISSING_CONFIRMATION,4,0,0,0,1,1,0
+seed_18,reserved evaluation,UNKNOWN_CONFIRMATION,3,0,0,0,1,1,0
+seed_18,reserved evaluation,DUPLICATE,3,0,0,0,1,1,0
+seed_18,reserved evaluation,AMBIGUOUS,2,0,0,0,1,1,0
+seed_18,reserved evaluation,EQUIVALENT_UNITS,0,0,0,0,N/A,N/A,5
+seed_18,reserved evaluation,COUNTERPARTY_VARIANT,0,0,0,0,N/A,N/A,4
+seed_18,reserved evaluation,ROUNDING,0,0,0,0,N/A,N/A,3
+seed_18,reserved evaluation,MISSING_TRADE_REF,0,0,0,0,N/A,N/A,3
+seed_19,reserved evaluation,PRICE,6,0,0,0,1,1,0
+seed_19,reserved evaluation,QUANTITY,5,0,0,0,1,1,0
+seed_19,reserved evaluation,SIDE,3,0,0,0,1,1,0
+seed_19,reserved evaluation,CONTRACT_MONTH,4,0,0,0,1,1,0
+seed_19,reserved evaluation,UNIT_ERROR,2,0,0,0,1,1,0
+seed_19,reserved evaluation,MISSING_CONFIRMATION,4,0,0,0,1,1,0
+seed_19,reserved evaluation,UNKNOWN_CONFIRMATION,3,0,0,0,1,1,0
+seed_19,reserved evaluation,DUPLICATE,3,0,0,0,1,1,0
+seed_19,reserved evaluation,AMBIGUOUS,2,0,0,0,1,1,0
+seed_19,reserved evaluation,EQUIVALENT_UNITS,0,0,0,0,N/A,N/A,5
+seed_19,reserved evaluation,COUNTERPARTY_VARIANT,0,0,0,0,N/A,N/A,4
+seed_19,reserved evaluation,ROUNDING,0,0,0,0,N/A,N/A,3
+seed_19,reserved evaluation,MISSING_TRADE_REF,0,0,0,0,N/A,N/A,3
+seed_20,reserved evaluation,PRICE,6,0,0,0,1,1,0
+seed_20,reserved evaluation,QUANTITY,5,0,0,0,1,1,0
+seed_20,reserved evaluation,SIDE,3,0,0,0,1,1,0
+seed_20,reserved evaluation,CONTRACT_MONTH,4,0,0,0,1,1,0
+seed_20,reserved evaluation,UNIT_ERROR,2,0,0,0,1,1,0
+seed_20,reserved evaluation,MISSING_CONFIRMATION,4,0,0,0,1,1,0
+seed_20,reserved evaluation,UNKNOWN_CONFIRMATION,3,0,0,0,1,1,0
+seed_20,reserved evaluation,DUPLICATE,3,0,0,0,1,1,0
+seed_20,reserved evaluation,AMBIGUOUS,2,0,0,0,1,1,0
+seed_20,reserved evaluation,EQUIVALENT_UNITS,0,0,0,0,N/A,N/A,5
+seed_20,reserved evaluation,COUNTERPARTY_VARIANT,0,0,0,0,N/A,N/A,4
+seed_20,reserved evaluation,ROUNDING,0,0,0,0,N/A,N/A,3
+seed_20,reserved evaluation,MISSING_TRADE_REF,0,0,0,0,N/A,N/A,3

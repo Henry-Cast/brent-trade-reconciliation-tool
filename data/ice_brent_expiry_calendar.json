@@ -1,0 +1,24 @@
+{
+  "product": "ICE Brent Crude Futures",
+  "ice_product_id": 219,
+  "coverage_trade_date_start": "2026-09-01",
+  "coverage_trade_date_end": "2026-12-31",
+  "date_only_assumption": "A trade on a contract's last trading date occurs before that day's expiry cutoff. Intraday tradability is not claimed.",
+  "coverage_note": "The calendar covers only the stated trade-date window. Extend and verify it against ICE before using a later price month. This is not a general exchange holiday calculator.",
+  "contracts": [
+    {"contract_month": "2026-11", "last_trade_date": "2026-09-30", "evidence": "ICE 2026 expiry calendar, September page 11, Brent symbol B on September 30; apply the second-preceding-month contract rule."},
+    {"contract_month": "2026-12", "last_trade_date": "2026-10-30", "evidence": "ICE 2026 expiry calendar, October page 12; ICE October DST schedule page 9 explicitly lists Brent expiry on October 30 at 18:30 GMT."},
+    {"contract_month": "2027-01", "last_trade_date": "2026-11-30", "evidence": "ICE product 219 expiry-details table, Jan27 LTD."},
+    {"contract_month": "2027-02", "last_trade_date": "2026-12-30", "evidence": "ICE product 219 expiry-details table, Feb27 LTD; New Year exception."},
+    {"contract_month": "2027-03", "last_trade_date": "2027-01-29", "evidence": "ICE product 219 expiry-details table, Mar27 LTD."},
+    {"contract_month": "2027-04", "last_trade_date": "2027-02-26", "evidence": "ICE product 219 expiry-details table, Apr27 LTD."},
+    {"contract_month": "2027-05", "last_trade_date": "2027-03-31", "evidence": "ICE product 219 expiry-details table, May27 LTD."}
+  ],
+  "sources": [
+    "https://www.ice.com/products/219/Brent-Crude-Futures",
+    "https://www.ice.com/products/219/brent-crude-futures/expiry",
+    "https://www.ice.com/publicdocs/futures/ICE_Futures_Europe_Expiry_Calendar.pdf",
+    "https://www.ice.com/publicdocs/futures/Trading_Schedule_Temporary_Trading_Hours_for_DST.pdf"
+  ],
+  "local_evidence_directory": "reports/expiry_realism/sources"
+}

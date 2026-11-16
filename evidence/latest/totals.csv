@@ -1,0 +1,5 @@
+split,datasets,blotter_rows,confirmation_rows,matched_pairs,matched_trades,review_groups,result_rows,found,missed,false_alarms,mislabelled,correctly_quiet,rule4_pairs,general_name_resolutions,alias_name_resolutions,value_of_discrepancy_usd,precision,recall
+development,5,1000,1010,975,960,10,160,160,0,0,0,75,25,10,10,1049544417.60,1,1
+reserved evaluation,15,3000,3030,2925,2880,30,480,480,0,0,0,225,75,30,30,3357179072.65,1,1
+all 20 seeded datasets,20,4000,4040,3900,3840,40,640,640,0,0,0,300,100,40,40,4406723490.25,1,1
+clean control,1,200,200,200,200,0,0,0,0,0,0,0,0,0,0,0,N/A,N/A

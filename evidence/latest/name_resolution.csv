@@ -1,0 +1,64 @@
+dataset,split,counterparty_resolution,count
+seed_1,development,GENERAL_RULES,2
+seed_1,development,ALIAS_TABLE,2
+seed_1,development,UNRESOLVED,0
+seed_2,development,GENERAL_RULES,2
+seed_2,development,ALIAS_TABLE,2
+seed_2,development,UNRESOLVED,0
+seed_3,development,GENERAL_RULES,2
+seed_3,development,ALIAS_TABLE,2
+seed_3,development,UNRESOLVED,0
+seed_4,development,GENERAL_RULES,2
+seed_4,development,ALIAS_TABLE,2
+seed_4,development,UNRESOLVED,0
+seed_5,development,GENERAL_RULES,2
+seed_5,development,ALIAS_TABLE,2
+seed_5,development,UNRESOLVED,0
+clean,clean control,GENERAL_RULES,0
+clean,clean control,ALIAS_TABLE,0
+clean,clean control,UNRESOLVED,0
+seed_6,reserved evaluation,GENERAL_RULES,2
+seed_6,reserved evaluation,ALIAS_TABLE,2
+seed_6,reserved evaluation,UNRESOLVED,0
+seed_7,reserved evaluation,GENERAL_RULES,2
+seed_7,reserved evaluation,ALIAS_TABLE,2
+seed_7,reserved evaluation,UNRESOLVED,0
+seed_8,reserved evaluation,GENERAL_RULES,2
+seed_8,reserved evaluation,ALIAS_TABLE,2
+seed_8,reserved evaluation,UNRESOLVED,0
+seed_9,reserved evaluation,GENERAL_RULES,2
+seed_9,reserved evaluation,ALIAS_TABLE,2
+seed_9,reserved evaluation,UNRESOLVED,0
+seed_10,reserved evaluation,GENERAL_RULES,2
+seed_10,reserved evaluation,ALIAS_TABLE,2
+seed_10,reserved evaluation,UNRESOLVED,0
+seed_11,reserved evaluation,GENERAL_RULES,2
+seed_11,reserved evaluation,ALIAS_TABLE,2
+seed_11,reserved evaluation,UNRESOLVED,0
+seed_12,reserved evaluation,GENERAL_RULES,2
+seed_12,reserved evaluation,ALIAS_TABLE,2
+seed_12,reserved evaluation,UNRESOLVED,0
+seed_13,reserved evaluation,GENERAL_RULES,2
+seed_13,reserved evaluation,ALIAS_TABLE,2
+seed_13,reserved evaluation,UNRESOLVED,0
+seed_14,reserved evaluation,GENERAL_RULES,2
+seed_14,reserved evaluation,ALIAS_TABLE,2
+seed_14,reserved evaluation,UNRESOLVED,0
+seed_15,reserved evaluation,GENERAL_RULES,2
+seed_15,reserved evaluation,ALIAS_TABLE,2
+seed_15,reserved evaluation,UNRESOLVED,0
+seed_16,reserved evaluation,GENERAL_RULES,2
+seed_16,reserved evaluation,ALIAS_TABLE,2
+seed_16,reserved evaluation,UNRESOLVED,0
+seed_17,reserved evaluation,GENERAL_RULES,2
+seed_17,reserved evaluation,ALIAS_TABLE,2
+seed_17,reserved evaluation,UNRESOLVED,0
+seed_18,reserved evaluation,GENERAL_RULES,2
+seed_18,reserved evaluation,ALIAS_TABLE,2
+seed_18,reserved evaluation,UNRESOLVED,0
+seed_19,reserved evaluation,GENERAL_RULES,2
+seed_19,reserved evaluation,ALIAS_TABLE,2
+seed_19,reserved evaluation,UNRESOLVED,0
+seed_20,reserved evaluation,GENERAL_RULES,2
+seed_20,reserved evaluation,ALIAS_TABLE,2
+seed_20,reserved evaluation,UNRESOLVED,0

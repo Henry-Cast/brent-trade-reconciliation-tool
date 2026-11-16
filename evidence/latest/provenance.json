@@ -1,0 +1,56 @@
+{
+  "measurement": "Latest expiry-corrected evaluation; retained results, not a new unseen benchmark",
+  "original_evidence": "Private local expiry_realism evaluation",
+  "tables": {
+    "run_summary.csv": "564ed63a0be4e90c77597e693b8c5907213c7a235f3f396531dbc6f5ffe61868",
+    "totals.csv": "bdb75929115ff464379c3bf26358dee43b5e743063403ffe4cedae6ef6f18a18",
+    "scorecards.csv": "9ce30344b6b196f758e5a6f8fb1477bd50e232747765f84d403dbc685ec18bc8",
+    "value_by_break_type.csv": "8b3aabc08b75016899e9a28d851fad55925fae6060502a0d33ab95a068583e76",
+    "matching_rules.csv": "054b0de7ed8c4750c1227d3b45e2a47228ca8a3447b58b4ab2193da0253ebedc",
+    "name_resolution.csv": "cb8ae66154e5b5e04adeec11b4b308f199088995478f4ca25f64083efec8289c"
+  },
+  "split": {
+    "development": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "reserved_evaluation": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ]
+  },
+  "measurement_tables_modified_for_publication": false,
+  "evaluation_frozen_at_utc": "2026-11-13T19:41:57.992699+00:00",
+  "evaluation_inputs": {
+    "data/RBRTEd.xls": "e37f0a6f81a10627d90ad22943d6945a11ce4e08fb28eea84479037f53e31405",
+    "data/brent_spot.csv": "faad4c62b8a3ddc5eb64424d6ee2c1dfb73cf1eb2d5b9f0f5a536fa0d2daa920",
+    "data/ice_brent_expiry_calendar.json": "c82996cb82519e95c505c218fb623562e6a0498dd303a45436f0c1c5bd06d735",
+    "settings.json": "6ea7207c7ecc58b19a77b3861c3b43888561958993253703059c6a7fd8024d4e",
+    "src/generate.py": "30c7cfb2422a4e3dac48a93cfeb8216c36267d75d8a8ffdacdc51cea7b6cd06e"
+  },
+  "evaluation_inputs_note": "Historical inputs and generator source from the recorded evaluation, not current runtime requirements or a current generator freeze. The original workbook is not included.",
+  "current_market_price_input": {
+    "file": "data/brent_spot.csv",
+    "observations": 22,
+    "month": "2026-10",
+    "sha256": "faad4c62b8a3ddc5eb64424d6ee2c1dfb73cf1eb2d5b9f0f5a536fa0d2daa920",
+    "source_credit": "Source: U.S. Energy Information Administration (Nov 2026)",
+    "underlying_source_credited_by_eia": "Refinitiv"
+  }
+}

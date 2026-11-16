@@ -1,0 +1,22 @@
+dataset,split,blotter_rows,confirmation_rows,matched_pairs,matched_trades,review_groups,result_rows,found,missed,false_alarms,mislabelled,correctly_quiet,value_of_discrepancy_usd,generation_attempts,rule4_pairs,general_name_resolutions,alias_name_resolutions
+seed_1,development,200,202,195,192,2,32,32,0,0,0,15,230241854.20,1,5,2,2
+seed_2,development,200,202,195,192,2,32,32,0,0,0,15,182612075.90,1,5,2,2
+seed_3,development,200,202,195,192,2,32,32,0,0,0,15,234186659.00,1,5,2,2
+seed_4,development,200,202,195,192,2,32,32,0,0,0,15,260307884.00,1,5,2,2
+seed_5,development,200,202,195,192,2,32,32,0,0,0,15,142195944.50,1,5,2,2
+clean,clean control,200,200,200,200,0,0,0,0,0,0,0,0,1,0,0,0
+seed_6,reserved evaluation,200,202,195,192,2,32,32,0,0,0,15,258649650.75,1,5,2,2
+seed_7,reserved evaluation,200,202,195,192,2,32,32,0,0,0,15,242442413.00,1,5,2,2
+seed_8,reserved evaluation,200,202,195,192,2,32,32,0,0,0,15,159116857.90,1,5,2,2
+seed_9,reserved evaluation,200,202,195,192,2,32,32,0,0,0,15,249810462.70,1,5,2,2
+seed_10,reserved evaluation,200,202,195,192,2,32,32,0,0,0,15,201268617.50,1,5,2,2
+seed_11,reserved evaluation,200,202,195,192,2,32,32,0,0,0,15,201231249.00,1,5,2,2
+seed_12,reserved evaluation,200,202,195,192,2,32,32,0,0,0,15,232318820.75,2,5,2,2
+seed_13,reserved evaluation,200,202,195,192,2,32,32,0,0,0,15,203328329.50,1,5,2,2
+seed_14,reserved evaluation,200,202,195,192,2,32,32,0,0,0,15,257041250.50,1,5,2,2
+seed_15,reserved evaluation,200,202,195,192,2,32,32,0,0,0,15,216155075.50,1,5,2,2
+seed_16,reserved evaluation,200,202,195,192,2,32,32,0,0,0,15,246243336.90,1,5,2,2
+seed_17,reserved evaluation,200,202,195,192,2,32,32,0,0,0,15,233115743.60,1,5,2,2
+seed_18,reserved evaluation,200,202,195,192,2,32,32,0,0,0,15,138279371.30,1,5,2,2
+seed_19,reserved evaluation,200,202,195,192,2,32,32,0,0,0,15,293431533.75,1,5,2,2
+seed_20,reserved evaluation,200,202,195,192,2,32,32,0,0,0,15,224746360.00,1,5,2,2

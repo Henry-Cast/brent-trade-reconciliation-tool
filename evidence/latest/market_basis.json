@@ -1,0 +1,56 @@
+{
+  "csv_observations": 22,
+  "date_min": "2026-10-01",
+  "date_max": "2026-10-30",
+  "workbook_observations": 9128,
+  "workbook_last_date": "2026-11-11",
+  "csv_all_rows_exactly_match_workbook": true,
+  "csv_spot_mean_usd_bbl": "123.9272727272727272727272727",
+  "eia_published_monthly_october_usd_bbl": "123.93",
+  "eia_monthly_source": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=RBRTE&f=M",
+  "fixed_contract_chart_comparisons": {
+    "Jan27": {
+      "n": 22,
+      "futures_chart_mean": "104.7313636363636363636363636",
+      "spot_minus_chart_mean": "19.19590909090909090909090909",
+      "min_difference": "4.48",
+      "max_difference": "36.80"
+    },
+    "Feb27": {
+      "n": 22,
+      "futures_chart_mean": "101.605",
+      "spot_minus_chart_mean": "22.32227272727272727272727273",
+      "min_difference": "8.13",
+      "max_difference": "39.58"
+    },
+    "Mar27": {
+      "n": 22,
+      "futures_chart_mean": "99.12727272727272727272727273",
+      "spot_minus_chart_mean": "24.80",
+      "min_difference": "11.21",
+      "max_difference": "41.73"
+    }
+  },
+  "warning": "No roll or interpolation. Historical bars are not explicitly labelled settlement. Not an authenticated ICE settlement comparison.",
+  "checked_utc_date": "2026-11-16",
+  "published_scope": "Aggregate research calculations only; no bulk ICE chart data published",
+  "source_urls": {
+    "EIA daily Brent spot series": "https://www.eia.gov/dnav/pet/hist/RBRTEd.htm",
+    "EIA monthly Brent spot series": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=RBRTE&f=M",
+    "ICE fixed-Jan27 historical chart observations": "https://www.ice.com/products/219/Brent-Crude-Futures/data",
+    "ICE chart-contract mapping": "https://www.ice.com/products/219/Brent-Crude-Futures/data",
+    "EIA spot-price source credit": "https://www.eia.gov/dnav/pet/pet_pri_spt_s1_d.htm",
+    "EIA reuse and third-party-rights policy": "https://www.eia.gov/about/copyrights_reuse.php",
+    "ICE Brent contract specification": "https://www.ice.com/products/219/Brent-Crude-Futures",
+    "ICE Brent expiry listing": "https://www.ice.com/products/219/Brent-Crude-Futures/expiry",
+    "Streamlit Community Cloud Python policy": "https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/deploy",
+    "Python supported-version lifecycle": "https://devguide.python.org/versions/"
+  },
+  "source_snapshot_sha256": {
+    "ice_contract_data.html": "db2755c5a18177fc3c2c6b323b9ce5ec9f4ca55810c561555291e04c41daa8b7",
+    "ice_historical_jan27.html": "1c2ad6e3c269d01f798eedbecf29dd2c77b358f6b80e066215b651f21e9d75cb"
+  },
+  "full_notional_categories_usd": "2358353650.00",
+  "aggregate_value_of_discrepancy_usd": "4406723490.25",
+  "full_notional_percentage": "53.52"
+}

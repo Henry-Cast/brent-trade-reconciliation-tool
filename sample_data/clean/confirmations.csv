@@ -1,0 +1,11 @@
+confirm_id,trade_ref,trade_date,trader,counterparty,broker,side,contract_month,quantity,unit,price_usd_bbl
+C000001,T000001,2026-10-07,L. Merevale,Kestrel Shoal Energy Ltd,Copper Gull Brokerage,SELL,2027-02,50,LOTS,125.62
+C000002,T000002,2026-10-29,A. Fenwick,Amber Buoy Trading Ltd,Willow Quay Brokers,SELL,2027-01,50,LOTS,115.09
+C000003,T000003,2026-10-28,L. Merevale,Silver Tern Fuels Ltd,Willow Quay Brokers,BUY,2026-12,25,LOTS,119.24
+C000004,T000004,2026-10-01,P. Ashcombe,Silver Tern Fuels Ltd,Willow Quay Brokers,SELL,2026-12,200,LOTS,114.72
+C000005,T000005,2026-10-09,P. Ashcombe,Kestrel Shoal Energy Ltd,Copper Gull Brokerage,SELL,2027-01,100,LOTS,129.78
+C000006,T000006,2026-10-12,P. Ashcombe,Kestrel Shoal Energy Ltd,Copper Gull Brokerage,SELL,2027-01,5,LOTS,129.77
+C000007,T000007,2026-10-20,A. Fenwick,Kestrel Shoal Energy Ltd,Copper Gull Brokerage,BUY,2027-02,200,LOTS,115.02
+C000008,T000008,2026-10-15,L. Merevale,Silver Tern Fuels Ltd,Willow Quay Brokers,SELL,2027-02,25,LOTS,126.11
+C000009,T000009,2026-10-27,L. Merevale,Silver Tern Fuels Ltd,Willow Quay Brokers,SELL,2027-01,10,LOTS,123.01
+C000010,T000010,2026-10-19,L. Merevale,Silver Tern Fuels Ltd,Copper Gull Brokerage,BUY,2027-01,50,LOTS,118.62

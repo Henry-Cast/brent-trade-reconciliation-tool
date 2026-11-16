@@ -1,0 +1,62 @@
+dataset,split,matching_rule,pairs
+seed_1,development,RULE_2_REFERENCE,187
+seed_1,development,RULE_3_ATTRIBUTES,3
+seed_1,development,RULE_4_NEAR_MATCH,5
+seed_2,development,RULE_2_REFERENCE,187
+seed_2,development,RULE_3_ATTRIBUTES,3
+seed_2,development,RULE_4_NEAR_MATCH,5
+seed_3,development,RULE_2_REFERENCE,187
+seed_3,development,RULE_3_ATTRIBUTES,3
+seed_3,development,RULE_4_NEAR_MATCH,5
+seed_4,development,RULE_2_REFERENCE,187
+seed_4,development,RULE_3_ATTRIBUTES,3
+seed_4,development,RULE_4_NEAR_MATCH,5
+seed_5,development,RULE_2_REFERENCE,187
+seed_5,development,RULE_3_ATTRIBUTES,3
+seed_5,development,RULE_4_NEAR_MATCH,5
+clean,clean control,RULE_2_REFERENCE,200
+seed_6,reserved evaluation,RULE_2_REFERENCE,187
+seed_6,reserved evaluation,RULE_3_ATTRIBUTES,3
+seed_6,reserved evaluation,RULE_4_NEAR_MATCH,5
+seed_7,reserved evaluation,RULE_2_REFERENCE,187
+seed_7,reserved evaluation,RULE_3_ATTRIBUTES,3
+seed_7,reserved evaluation,RULE_4_NEAR_MATCH,5
+seed_8,reserved evaluation,RULE_2_REFERENCE,187
+seed_8,reserved evaluation,RULE_3_ATTRIBUTES,3
+seed_8,reserved evaluation,RULE_4_NEAR_MATCH,5
+seed_9,reserved evaluation,RULE_2_REFERENCE,187
+seed_9,reserved evaluation,RULE_3_ATTRIBUTES,3
+seed_9,reserved evaluation,RULE_4_NEAR_MATCH,5
+seed_10,reserved evaluation,RULE_2_REFERENCE,187
+seed_10,reserved evaluation,RULE_3_ATTRIBUTES,3
+seed_10,reserved evaluation,RULE_4_NEAR_MATCH,5
+seed_11,reserved evaluation,RULE_2_REFERENCE,187
+seed_11,reserved evaluation,RULE_3_ATTRIBUTES,3
+seed_11,reserved evaluation,RULE_4_NEAR_MATCH,5
+seed_12,reserved evaluation,RULE_2_REFERENCE,187
+seed_12,reserved evaluation,RULE_3_ATTRIBUTES,3
+seed_12,reserved evaluation,RULE_4_NEAR_MATCH,5
+seed_13,reserved evaluation,RULE_2_REFERENCE,187
+seed_13,reserved evaluation,RULE_3_ATTRIBUTES,3
+seed_13,reserved evaluation,RULE_4_NEAR_MATCH,5
+seed_14,reserved evaluation,RULE_2_REFERENCE,187
+seed_14,reserved evaluation,RULE_3_ATTRIBUTES,3
+seed_14,reserved evaluation,RULE_4_NEAR_MATCH,5
+seed_15,reserved evaluation,RULE_2_REFERENCE,187
+seed_15,reserved evaluation,RULE_3_ATTRIBUTES,3
+seed_15,reserved evaluation,RULE_4_NEAR_MATCH,5
+seed_16,reserved evaluation,RULE_2_REFERENCE,187
+seed_16,reserved evaluation,RULE_3_ATTRIBUTES,3
+seed_16,reserved evaluation,RULE_4_NEAR_MATCH,5
+seed_17,reserved evaluation,RULE_2_REFERENCE,187
+seed_17,reserved evaluation,RULE_3_ATTRIBUTES,3
+seed_17,reserved evaluation,RULE_4_NEAR_MATCH,5
+seed_18,reserved evaluation,RULE_2_REFERENCE,187
+seed_18,reserved evaluation,RULE_3_ATTRIBUTES,3
+seed_18,reserved evaluation,RULE_4_NEAR_MATCH,5
+seed_19,reserved evaluation,RULE_2_REFERENCE,187
+seed_19,reserved evaluation,RULE_3_ATTRIBUTES,3
+seed_19,reserved evaluation,RULE_4_NEAR_MATCH,5
+seed_20,reserved evaluation,RULE_2_REFERENCE,187
+seed_20,reserved evaluation,RULE_3_ATTRIBUTES,3
+seed_20,reserved evaluation,RULE_4_NEAR_MATCH,5

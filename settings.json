@@ -1,0 +1,14 @@
+{
+  "price_tolerance_usd_bbl": "0.01",
+  "volume_tolerance_bbl": 0,
+  "barrels_per_lot": 1000,
+  "contract_month_adjustment_usd_bbl": "-0.15",
+  "counterparty_aliases": {
+    "KESTREL SHOAL ENERGY LIMITED": "KESTREL SHOAL ENERGY LTD",
+    "AMBER BUOY TRADING LIMITED": "AMBER BUOY TRADING LTD",
+    "SILVER TERN FUELS LIMITED": "SILVER TERN FUELS LTD",
+    "KESTREL SHOAL": "KESTREL SHOAL ENERGY LTD",
+    "AMBER BUOY": "AMBER BUOY TRADING LTD",
+    "SILVER TERN": "SILVER TERN FUELS LTD"
+  }
+}

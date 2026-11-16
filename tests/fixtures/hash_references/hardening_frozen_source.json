@@ -1,0 +1,9 @@
+{
+  "frozen_source": {
+    "src/normalise.py": "8bdd0e11bf493c6ac098ccc83673653a3ff787107e4f294b97fd97003287b097",
+    "src/match.py": "9a8f4cb4ed2a60765b90654cb713567ace5a9edc092b86ff7483a1d1d3916e4e",
+    "src/compare.py": "8c09f917089cdc9489ce44805b3c3a6e93e43ab9a87a50f8277c0bc3e5f96e9c",
+    "src/reconcile.py": "931b493637d6a7c2a8f2a05d43879cb3975c63be0cc441c8dc19e66d82a6220e",
+    "src/scorecard.py": "c6bc7a80fa047b0270a7faee49e8d919a92c6fe9f083f8106f3a70e9b0202b86"
+  }
+}

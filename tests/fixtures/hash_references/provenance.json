@@ -1,0 +1,25 @@
+{
+  "references": [
+    {
+      "original": "reports/expiry_realism/engine_before.json",
+      "original_sha256": "8fdc66da4220b7cd9d1e5cb80b6d240d34bc9ab1610833759143b59d5620484b",
+      "public": "tests/fixtures/hash_references/engine_before.json",
+      "public_sha256": "8fdc66da4220b7cd9d1e5cb80b6d240d34bc9ab1610833759143b59d5620484b",
+      "extraction": "byte-identical full hash mapping"
+    },
+    {
+      "original": "reports/stage2_hardening/freeze.json",
+      "original_sha256": "a7122c38310c8ab6af0815f51449e6deb3948ee195dfde6dd2bf7ef7786ed1f6",
+      "public": "tests/fixtures/hash_references/hardening_frozen_source.json",
+      "public_sha256": "91248ae9ad78a7c463e9f2f0ea8d6524a8a73df426399255179c10fed6ec6c18",
+      "extraction": "frozen_source only"
+    },
+    {
+      "original": "archive/pre_expiry_realism_correction/reports/stage3/frozen_before.json",
+      "original_sha256": "c015b2985e62edf87bfff723bb73923209d68beb563321d9df9ae9e2e917cbb7",
+      "public": "tests/fixtures/hash_references/stage3_frozen_before.json",
+      "public_sha256": "c015b2985e62edf87bfff723bb73923209d68beb563321d9df9ae9e2e917cbb7",
+      "extraction": "byte-identical full hash mapping"
+    }
+  ]
+}

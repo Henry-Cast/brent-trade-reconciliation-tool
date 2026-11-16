@@ -1,0 +1,22 @@
+{
+  "src/generate.py": "e0eb177c7a1cc1a4295a13b33bc2b06d3c5ee293d2a087e1b4688171cf901919",
+  "src/scorecard.py": "c6bc7a80fa047b0270a7faee49e8d919a92c6fe9f083f8106f3a70e9b0202b86",
+  "src/normalise.py": "8bdd0e11bf493c6ac098ccc83673653a3ff787107e4f294b97fd97003287b097",
+  "src/reconcile.py": "931b493637d6a7c2a8f2a05d43879cb3975c63be0cc441c8dc19e66d82a6220e",
+  "src/compare.py": "8c09f917089cdc9489ce44805b3c3a6e93e43ab9a87a50f8277c0bc3e5f96e9c",
+  "src/match.py": "9a8f4cb4ed2a60765b90654cb713567ace5a9edc092b86ff7483a1d1d3916e4e",
+  "settings.json": "6ea7207c7ecc58b19a77b3861c3b43888561958993253703059c6a7fd8024d4e",
+  "tests/conftest.py": "f387823e76ae95d90e925715931e01f8ccae16c8a0de79533661d93d42228d4e",
+  "tests/test_normalise.py": "470442b1fcfe759176b2c773357c13950468d5dcbf8d991f6974b00e183a56a0",
+  "tests/test_scorecard.py": "656b1f5dab597ea62704a77cd3455197646b5244cefe7cd028d44fe04a45bd49",
+  "tests/test_engine_boundaries.py": "f1ccc1b6f0c39f4d7ee322d2603160812377c2938404785bcb1576e628759bb7",
+  "tests/test_hardening.py": "ebfb3ed8e8082ab6c424f46ce14185f0979a9156054c73cadfed7d5c198ebe2c",
+  "tests/test_prices.py": "079ab6a22f929cdb282ff637141a4274ba5a5a75cc3cfcf817ac45e2f300791b",
+  "tests/test_reconcile.py": "5ec5d5d5ca21dbea45ba6ad369c1f5d70fff8c76abfd32d3d2345f1a649d68f1",
+  "tests/test_generate.py": "ebcadb87fed4193d6098ea68ad3a65e7dd03a1db2f92b72c8aad1ee71449a41c",
+  "tests/test_match.py": "dde457d71594be8ed6a080decdb15d0b618ff3ee4a634f53ad102a15bf4e0068",
+  "tests/test_matching_safety.py": "91aabc25363b8cb225abcbd34096229d0518d28f2d1e0ced5b04550d1e8481f2",
+  "tests/test_stage1_fixes.py": "5f7e9ef047a2b3d51125765ff19779528f9cec3c0ca755977918a74d5cd06b0d",
+  "tests/test_compare.py": "d666b8273b28125c8cb45b4b86d68b527efb1ade9aec9987374cdc813285304a",
+  "tests/test_cli.py": "aeb4632b05b0fc89a81467dbbf478f138ee348453d67de436a7ff325ce5d598d"
+}
