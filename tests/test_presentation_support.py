@@ -60,7 +60,7 @@ def test_pretty_case_name_uses_reviewed_names_and_friendly_quiet_cases(code, lab
                   "false_alarms": "5", "correctly_quiet": "6"},
                  {"found": 7, "missed": 8, "mislabelled": 9,
                   "false_alarms": 10, "correctly_quiet": 11}]},
-     "Found 9 of 33 planted cases. 11 missed, 15 false alarms, 13 incorrectly labelled. "
+     "Found 9 of 20 planted cases. 11 missed, 15 false alarms, 13 incorrectly labelled. "
      "17 harmless differences correctly left alone."),
     ({"scores": []}, "Found 0 of 0 planted cases. 0 missed, 0 false alarms. "
      "0 harmless differences correctly left alone."),
@@ -103,7 +103,7 @@ def test_friendly_scorecard_frame_handles_empty_and_future_rows_without_losing_d
 @pytest.mark.parametrize("affected,note,highlight", [
     ("price_usd_bbl", "The differing fields are marked below.", ["price_usd_bbl"]),
     ("volume_bbl", "The differing fields are marked below.", ["quantity", "unit"]),
-    ("confirmation_count", "All confirmations are shown; this tool has not chosen an original.", ["trade_ref"]),
+    ("confirmation_count", "All confirmations are shown; this tool has not chosen an original.", []),
     ("pairing", "These records need manual pairing; this tool has not chosen a pair.", []),
     ("record", "The available records are shown below.", ["trade_id", "confirm_id", "trade_ref", "quantity"]),
 ], ids=["price", "volume", "group", "review", "whole-record"])

@@ -46,10 +46,13 @@ The total value of discrepancy is mostly full-notional items, **not a loss or P&
 - Suggested actions are general demonstration guidance, not your firm's procedure. Check originals and follow your desk's procedure; copying a draft does not establish which record is correct.
 - Scope: Brent, USD, lots/barrels, specified tolerances and manually maintained aliases. Fees, commissions, other products, tonnes and unspecified economic disagreements are outside the rules; unsupported cases may error rather than receive invented classifications or values.
 - There is no account system, production security assessment, live feed or settlement connection. Do not upload confidential desk data to an unassessed host.
+- A confirmation that quotes the wrong desk trade reference is paired by that reference, so its differences are reported against the wrong trade and the right trade can appear missing. The tool warns but does not re-pair automatically.
+- One unresolvable record (for example a misspelt counterparty not in the alias list) stops the whole run; the tool does not produce a partial report.
+- Duplicate handling does not distinguish a resent confirmation from an amendment or a separate trade; the desk's own process decides.
 
 ## Authorship and local use
 
-Henry Cast specified, directed and tested this tool; the code was written with an AI coding agent, and each stage was independently reviewed before the next began.
+Henry Cast specified, directed and tested this tool. The code was written with an AI coding agent; each stage was reviewed by a separate AI model and approved by Henry before the next began, and a final review was done by a third model that had not seen the build.
 
 Stage reviews are not production certification. This tool uses deterministic Python and exact decimal arithmetic, not AI/LLM calls; explanations use fixed templates.
 

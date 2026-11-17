@@ -431,7 +431,7 @@ def test_duplicate_details_include_all_confirmations(workspace, make_trade, make
     run = upload_records(workspace, [trade], confirms)
     detail = app.exception_details(run, run["results"][0])
     assert detail["confirmations"] == confirms
-    assert detail["highlight_fields"] == ["trade_ref"]
+    assert detail["highlight_fields"] == []
     assert "all confirmations" in detail["note"].lower() and "not chosen an original" in detail["note"].lower()
 
 

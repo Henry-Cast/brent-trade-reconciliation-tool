@@ -182,6 +182,7 @@ def render_exceptions(run):
     st.subheader("Exceptions")
     st.download_button("Download exceptions report (CSV)", explain.report_csv(run),
                        file_name="exceptions_report.csv", mime="text/csv", key="download_exceptions")
+    st.caption("Values are measures for investigation, not a loss, P&L or money owed. Values for different break types use different bases and should not be added together.")
     if not run["results"]:
         st.success("No exceptions were reported by this tool.")
         return
@@ -233,7 +234,9 @@ def render_exceptions(run):
     st.caption(explain.DRAFT_CAPTION)
     st.subheader("Supporting records")
     st.write(detail["note"])
-    if row["break_type"] == "MISSING_CONFIRMATION":
+    if row["break_type"] == "DUPLICATE":
+        st.caption(f"{len(detail['confirmations'])} confirmations are linked to desk trade {row['trade_id']}.")
+    elif row["break_type"] == "MISSING_CONFIRMATION":
         st.caption("No confirmation to compare against.")
     elif row["break_type"] == "UNKNOWN_CONFIRMATION":
         st.caption("No desk trade to compare against.")
@@ -302,6 +305,9 @@ def main():
         st.caption("Small sample: 10 trades with three planted breaks.")
     elif st.session_state.get("active_choice") == "upload_own":
         st.caption("Your uploaded files.")
+    if run:
+        for warning in support.input_warnings(run):
+            st.warning(warning)
     pages = ["Reconciliation", "Scorecard"] if run and run["origin"] == "generated" else ["Reconciliation"]
     if st.session_state.get("page") not in pages:
         st.session_state["page"] = pages[0]

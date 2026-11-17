@@ -33,10 +33,10 @@ def test_upload_context_preserves_exact_normaliser_records_and_private_settings(
         workspace, make_trade, make_confirmation, monkeypatch):
     """Use one private settings snapshot for real reconciliation and canonical context."""
     trade = make_trade(identifier=" T001 ", quantity=" 5.000 ", side=" buy ",
-                       unit=" lots ", price_usd_bbl="80.000000000000000001",
+                       unit=" lots ", price_usd_bbl="80.000001",
                        desk_note=" untouched ")
     confirmation = make_confirmation(trade, identifier=" C001 ", trade_ref="", unit=" BBL ",
-                                     quantity="5000.000", price_usd_bbl="81.000000000000000001")
+                                     quantity="5000.000", price_usd_bbl="81.000001")
     actual = reconcile.reconcile_files
     calls = []
 
@@ -65,14 +65,14 @@ def test_upload_context_preserves_exact_normaliser_records_and_private_settings(
     assert record["_raw"] == trade and record["_raw"] is not trade
     assert record["_date"] == date(2026, 10, 1)
     assert record["_quantity"] == Decimal("5.000")
-    assert record["_price"] == Decimal("80.000000000000000001")
+    assert record["_price"] == Decimal("80.000001")
     assert record["_volume_bbl"] == Decimal("5000.000")
     assert context["confirmations"]["C001"]["trade_ref"] == ""
     assert run["blotter"] == [trade] and run["confirmations"] == [confirmation]
     assert (snapshot.parent / "blotter.csv").read_bytes() == csv_bytes([trade])
     assert (snapshot.parent / "confirmations.csv").read_bytes() == csv_bytes([confirmation])
     snapshot.unlink()
-    assert record["_price"] == Decimal("80.000000000000000001")
+    assert record["_price"] == Decimal("80.000001")
     assert run["results"][0]["value_of_discrepancy_usd"] == "5000.00"
 
 

@@ -81,10 +81,13 @@ reviews show every candidate and explicitly avoid choosing a pairing.
 The results introduction counts **HIGH**, **STANDARD** and **REVIEW** items from
 the reported rows. **Start here** names the first three in the existing priority
 order; changing a table sort does not change those suggestions. A clean run says
-that all its trades agree and there is nothing to chase.
+no exceptions were found and names the fields checked, including the $0.01 per
+barrel price tolerance. Upload warnings name unchecked columns and dangling
+references, using the existing match or unknown-confirmation results rather than
+guessing a new pairing. Unresolved review groups are labelled as manual review.
 
 Each selected exception has a friendly name beside its code and four parts
-below the highlighted original records: **A. What happened**, **B. How the value
+above the highlighted original records: **A. What happened**, **B. How the value
 is worked out**, **C. Suggested next step**, and **D. Draft query to the broker**.
 Part A stands alone, including the trade's details where a specific desk trade
 exists. Already-reported differences for the exact same single trade and
@@ -98,6 +101,8 @@ same settings used for that run. Decimal checks verify displayed formula operand
 against the reported amount to the cent. Missing or inconsistent operands cause a
 warning in the server log and an amount-only fallback, never a disagreeing sum.
 Prices keep extra precision when two decimals would misstate an actual input.
+Uploaded prices with more than six decimal places are rejected; generated data
+does not pass through this upload-only validation.
 
 Part C has the caption **General guidance only. Follow your own desk's
 procedure.** Part D is a copyable box with **Draft only. Nothing is sent by this
@@ -108,6 +113,9 @@ counterparty, direction, month, volume and price in a draft.
 **Download exceptions report (CSV)** retains all original exception columns and
 adds `friendly_name`, `what_happened`, `how_value_is_worked_out` and
 `suggested_next_step`. The draft is not exported. Blank review values stay blank.
+Formula-leading text cells (`=`, `+`, `-` or `@`) receive a leading apostrophe in
+the download; numeric value cells are unchanged. The caption warns that values
+use different investigation bases and should not be added together.
 The existing count-and-value table is unchanged. **How to read this** explains
 the value bases and cautions against treating the total as money payable.
 

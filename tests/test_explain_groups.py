@@ -42,8 +42,8 @@ def test_unilateral_template_full_identity(make_trade, make_confirmation, engine
         assert item["friendly_name"] == "Missing confirmation"
         assert item["what_happened"] == ("The desk booked trade T001: sold 5 lots (5,000 barrels) of Dec 2026 Brent at $80.00 "
             "with Fictional Energy Ltd via Example Broker on 14 Oct 2026. No matching confirmation was found in these files.")
-        guidance = "Ask the broker to send the confirmation. If the broker has no record of the trade, check with the trader that it was executed and booked with the right broker and counterparty. Also check the unknown confirmations in this report: one may be this trade with more than one detail different."
-        draft = "We have no confirmation for our trade T001: sold 5 lots (5,000 barrels) of Dec 2026 Brent at $80.00 on 14 Oct 2026 with Fictional Energy Ltd. Please send your confirmation or tell us if you have no record of this trade."
+        guidance = "First check whether a confirmation in this report quotes a different trade reference but matches this trade's details. Ask the broker to send the confirmation. If the broker has no record of the trade, check with the trader that it was executed and booked with the right broker and counterparty. Also check the unknown confirmations in this report: one may be this trade with more than one detail different."
+        draft = "We have not been able to match a confirmation to our trade T001: sold 5 lots (5,000 barrels) of Dec 2026 Brent at $80.00 on 14 Oct 2026 with Fictional Energy Ltd. Please send your confirmation or tell us if you have no record of this trade."
         suffix = "This is the full value of the unconfirmed trade."
     else:
         assert item["friendly_name"] == "Unknown confirmation"

@@ -111,7 +111,7 @@ def test_clean_summary_and_empty_csv_headers(make_trade, make_confirmation, engi
     trade = make_trade()
     run = real_run([trade], [make_confirmation(trade)], engine_settings)
     ex = explanation_module()
-    assert ex.results_summary(run) == {"text": "All 1 trades agree with the broker's confirmations. Nothing to chase.", "start_here": []}
+    assert ex.results_summary(run) == {"text": "No exceptions found. All 1 trades matched on trade date, counterparty, buy/sell, delivery month, volume and price (within $0.01 per barrel).", "start_here": []}
     assert ex.explain_all(run) == []
     assert list(csv.reader(io.StringIO(ex.report_csv(run).decode()))) == [RESULT_COLUMNS + ADDITIONS]
 

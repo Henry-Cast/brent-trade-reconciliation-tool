@@ -60,7 +60,7 @@ def test_sample_pair_has_exactly_three_confirmation_changes(tmp_path):
 
 
 @pytest.mark.parametrize("sample,summary", [
-    ("clean", "All 10 trades agree with the broker's confirmations. Nothing to chase."),
+    ("clean", "No exceptions found. All 10 trades matched on trade date, counterparty, buy/sell, delivery month, volume and price (within $0.01 per barrel)."),
     ("with_breaks", "3 items need attention: 2 high priority, 1 standard, 0 for manual review."),
 ])
 def test_uploaded_samples_have_explanations_and_complete_csv(app_test, monkeypatch, sample, summary):

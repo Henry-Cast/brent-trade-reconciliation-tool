@@ -62,8 +62,8 @@ def _unilateral(result, context):
     if missing:
         opening = _opening(result["trade_id"], d) + " No matching confirmation was found in these files."
         suffix = "This is the full value of the unconfirmed trade."
-        guidance = "Ask the broker to send the confirmation. If the broker has no record of the trade, check with the trader that it was executed and booked with the right broker and counterparty. Also check the unknown confirmations in this report: one may be this trade with more than one detail different."
-        draft = f"We have no confirmation for our trade {result['trade_id']}: {identity}. Please send your confirmation or tell us if you have no record of this trade."
+        guidance = "First check whether a confirmation in this report quotes a different trade reference but matches this trade's details. Ask the broker to send the confirmation. If the broker has no record of the trade, check with the trader that it was executed and booked with the right broker and counterparty. Also check the unknown confirmations in this report: one may be this trade with more than one detail different."
+        draft = f"We have not been able to match a confirmation to our trade {result['trade_id']}: {identity}. Please send your confirmation or tell us if you have no record of this trade."
     else:
         opening = (f"Confirmation {result['confirm_id']} records the desk as having {d['side']} {d['volume']} of {d['month']} Brent at {d['price']} "
                    f"with {d['counterparty']} on {d['date']}. No matching trade was found in the desk's blotter.")
@@ -236,7 +236,7 @@ def results_summary(run):
     results = run["results"]
     if not results:
         count = len(run["explanation_context"]["trades"])
-        return {"text": f"All {count} trades agree with the broker's confirmations. Nothing to chase.", "start_here": []}
+        return {"text": f"No exceptions found. All {count} trades matched on trade date, counterparty, buy/sell, delivery month, volume and price (within $0.01 per barrel).", "start_here": []}
     high = sum(row.get("priority") == "HIGH" for row in results)
     standard = sum(row.get("priority") == "STANDARD" for row in results)
     review = sum(row.get("priority") == "REVIEW" for row in results)
@@ -256,8 +256,23 @@ def results_summary(run):
     return {"text": f"{len(results)} items need attention: {high} high priority, {standard} standard, {review} for manual review.", "start_here": first}
 
 
+def _spreadsheet_cell(column, value):
+    """Escape formula-leading text, leaving numeric value cells unchanged."""
+    if column == "value_of_discrepancy_usd":
+        return value
+    if column in {"blotter_value", "confirmation_value"}:
+        try:
+            if Decimal(str(value)).is_finite():
+                return value
+        except DecimalException:
+            pass
+    if isinstance(value, str) and value.startswith(("=", "+", "-", "@")):
+        return "'" + value
+    return value
+
+
 def report_csv(run):
-    """Return UTF-8 CSV, preserving every original result column and value."""
+    """Return spreadsheet-safe UTF-8 CSV with unchanged columns and numeric values."""
     additions = ["friendly_name", "what_happened", "how_value_is_worked_out", "suggested_next_step"]
     output = io.StringIO(newline="")
     writer = csv.DictWriter(output, fieldnames=list(RESULT_COLUMNS) + additions)
@@ -266,7 +281,7 @@ def report_csv(run):
         row = {column: result.get(column, "") for column in RESULT_COLUMNS}
         row.update({column: explanation[column] for column in additions})
         row["suggested_next_step"] += " " + GUIDANCE_CAPTION
-        writer.writerow(row)
+        writer.writerow({column: _spreadsheet_cell(column, value) for column, value in row.items()})
     return output.getvalue().encode("utf-8")
 
 

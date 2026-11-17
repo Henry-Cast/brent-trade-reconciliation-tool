@@ -51,7 +51,7 @@ def scorecard_headline(measured):
     """Summarise measured case counts, keeping quiet cases and false alarms separate."""
     totals = {key: sum(int(row[key]) for row in measured["scores"])
               for key in ("found", "missed", "mislabelled", "false_alarms", "correctly_quiet")}
-    planted = totals["found"] + totals["missed"] + totals["mislabelled"]
+    planted = totals["found"] + totals["missed"]
     incorrect = (", {} incorrectly labelled".format(totals["mislabelled"])
                  if totals["mislabelled"] else "")
     return ("Found {found} of {planted} planted cases. {missed} missed, "
@@ -121,7 +121,9 @@ def validate_upload(filename, content, kind):
                             raise ValueError("Use YYYY-MM.")
                         date.fromisoformat(value + "-01")
                     elif column in {"quantity", "price_usd_bbl"}:
-                        positive_decimal(value, column)
+                        number_value = positive_decimal(value, column)
+                        if column == "price_usd_bbl" and number_value.as_tuple().exponent < -6:
+                            raise ValueError("Price must have no more than 6 decimal places.")
                     elif column == "side" and value.upper() not in {"BUY", "SELL"}:
                         raise ValueError("Use BUY or SELL.")
                     elif column == "unit" and value.upper() not in {"LOTS", "BBL"}:
@@ -371,7 +373,7 @@ def exception_details(run, row):
             raise AppInputError("A record listed by this tool is unavailable in session memory. Regenerate or upload again.")
         fields = {"price_usd_bbl": ["price_usd_bbl"], "volume_bbl": ["quantity", "unit"],
                   "side": ["side"], "contract_month": ["contract_month"],
-                  "confirmation_count": ["trade_ref"], "pairing": []}
+                  "confirmation_count": [], "pairing": []}
         affected = row.get("field_affected", "")
         highlight = fields.get(affected, [])
         note = "The differing fields are marked below."
@@ -386,6 +388,35 @@ def exception_details(run, row):
         return {"blotter": trades, "confirmations": confirms, "highlight_fields": highlight, "note": note}
     except Exception as error:
         raise AppInputError("Cannot display exception details: {}".format(error)) from None
+
+
+def input_warnings(run):
+    """Describe unchecked upload columns and explicit reference/match facts only."""
+    if run.get("origin") != "uploaded":
+        return []
+    unchecked = set()
+    for role, identifiers in [("blotter", {"trade_id"}),
+                              ("confirmations", {"confirm_id", "trade_ref"})]:
+        checked = set(COMMON_COLUMNS) | identifiers
+        unchecked.update(column for record in run[role] for column in record if column not in checked)
+    warnings = ["Not checked: " + ", ".join(sorted(unchecked)) + "."] if unchecked else []
+    trade_ids = {record["trade_id"].strip() for record in run["blotter"]}
+    matched_ids = {row["confirm_id"] for row in run["matches"]}
+    unknown_ids = {row["confirm_id"] for row in run["results"] if row["break_type"] == "UNKNOWN_CONFIRMATION"}
+    for record in run["confirmations"]:
+        reference = record["trade_ref"].strip()
+        if not reference or reference in trade_ids:
+            continue
+        identifier = record["confirm_id"].strip()
+        message = f"Confirmation {identifier} quotes trade reference {reference}, which is not in the blotter. "
+        if identifier in matched_ids:
+            message += "It was matched on its details instead; check the reference with the broker."
+        elif identifier in unknown_ids:
+            message += "It could not be matched and is listed as an unknown confirmation; check the reference with the broker."
+        else:
+            message += "Its pairing needs manual review; check the reference with the broker."
+        warnings.append(message)
+    return warnings
 
 
 def invalidate_run(state):
