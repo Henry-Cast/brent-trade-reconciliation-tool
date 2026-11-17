@@ -62,7 +62,7 @@ The measured tables remain in `evidence/latest/` at the project root, including 
 
 ## Read the value of discrepancy carefully
 
-The total value of discrepancy is mostly full-notional items, **not a loss or P&L**. For a missing, unknown or duplicate confirmation, and for a wrong delivery month, the specification assigns the whole trade's notional value. A side disagreement uses twice the notional; price and volume disagreements use different bases. Adding these figures does not produce an estimate of actual economic damage or money payable.
+The total value of discrepancy is mostly full-notional items, **not a loss or P&L**. For a missing, unknown or duplicate confirmation, and for a wrong delivery month, the specification assigns the whole trade's notional value. A side disagreement uses twice the notional. Values use different bases by break type, so the total shows the scale of what needs checking, not a single economic figure. It is not an estimate of actual economic damage or money payable.
 
 The app therefore shows counts and values by break type below the total. Review items have a **blank value**, not zero, and are excluded from the total. The retained all-20-dataset breakdown is:
 

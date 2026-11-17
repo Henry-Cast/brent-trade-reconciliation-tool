@@ -115,7 +115,8 @@ adds `friendly_name`, `what_happened`, `how_value_is_worked_out` and
 `suggested_next_step`. The draft is not exported. Blank review values stay blank.
 Formula-leading text cells (`=`, `+`, `-` or `@`) receive a leading apostrophe in
 the download; numeric value cells are unchanged. The caption warns that values
-use different investigation bases and should not be added together.
+use different bases by break type, so the total shows the scale of what needs
+checking, not a single economic figure.
 The existing count-and-value table is unchanged. **How to read this** explains
 the value bases and cautions against treating the total as money payable.
 

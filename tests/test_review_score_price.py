@@ -32,8 +32,8 @@ def test_headline_counts_real_mislabelled_output_once():
     measured = {"scores": list(csv.DictReader(io.StringIO(scores.to_csv(index=False))))}
     original = deepcopy(measured)
     assert app.scorecard_headline(measured) == (
-        "Found 1 of 3 planted cases. 2 missed, 1 false alarms, 1 incorrectly labelled. "
-        "1 harmless differences correctly left alone.")
+        "Found 1 of 3 planted cases. 2 missed, 1 false alarm, 1 incorrectly labelled. "
+        "1 harmless difference correctly left alone.")
     assert measured == original
 
 

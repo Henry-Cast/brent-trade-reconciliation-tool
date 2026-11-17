@@ -111,7 +111,7 @@ def test_clean_summary_and_empty_csv_headers(make_trade, make_confirmation, engi
     trade = make_trade()
     run = real_run([trade], [make_confirmation(trade)], engine_settings)
     ex = explanation_module()
-    assert ex.results_summary(run) == {"text": "No exceptions found. All 1 trades matched on trade date, counterparty, buy/sell, delivery month, volume and price (within $0.01 per barrel).", "start_here": []}
+    assert ex.results_summary(run) == {"text": "No exceptions found. 1 trade matched on trade date, counterparty, buy/sell, delivery month, volume and price (within $0.01 per barrel).", "start_here": []}
     assert ex.explain_all(run) == []
     assert list(csv.reader(io.StringIO(ex.report_csv(run).decode()))) == [RESULT_COLUMNS + ADDITIONS]
 
@@ -125,7 +125,7 @@ def test_reading_guide_explains_different_bases_blank_review_and_not_a_loss():
     assert guide.splitlines() == [
         "- A break is a difference or item that needs checking.",
         "- Value of discrepancy is not a loss or an amount owed.",
-        "- Different break types use different sums. Read each explanation.",
+        "- Different break types use different sums. The total shows the scale of what needs checking, not a single economic figure.",
         "- A blank value means pairing needs manual review, not zero.",
         "- Bought/sold describe the desk's direction; lots also show barrels.",
         "- Suggested steps are general guidance; drafts are not sent by this tool.",

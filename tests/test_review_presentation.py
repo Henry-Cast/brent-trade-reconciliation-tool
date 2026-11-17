@@ -116,7 +116,7 @@ def test_report_csv_escapes_text_without_changing_numeric_values(app_test, monke
 def test_export_button_has_investigation_caption(app_test):
     at = app_test.run()
     at.button(key="load_sample").click().run()
-    assert "Values are measures for investigation, not a loss, P&L or money owed. Values for different break types use different bases and should not be added together." in [item.value for item in at.caption]
+    assert "Values are measures for investigation, not a loss, P&L or money owed. They use different bases by break type, so the total shows the scale of what needs checking, not a single economic figure." in [item.value for item in at.caption]
 
 
 def test_extra_column_warning_survives_exceptions(app_test, monkeypatch):
@@ -164,4 +164,4 @@ def test_one_real_mislabelled_case_has_planted_total_one():
         [{"case_id": "CASE1", "trade_id": "T1", "confirm_id": "C1", "case_type": "PRICE", "expected_outcome": "BREAK"}], [])
     assert int(scores["missed"].sum()) == 1
     assert int(scores["mislabelled"].sum()) == 1
-    assert support.scorecard_headline({"scores": scores.to_dict("records")}).startswith("Found 0 of 1 planted cases.")
+    assert support.scorecard_headline({"scores": scores.to_dict("records")}).startswith("Found 0 of 1 planted case.")

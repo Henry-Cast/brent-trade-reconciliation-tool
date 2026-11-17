@@ -9,7 +9,7 @@ def test_one_extra_confirmation_uses_singular_wording(make_trade, make_confirmat
                              make_confirmation(trade, identifier="C2")], engine_settings)
     result = next(row for row in run["results"] if row["break_type"] == "DUPLICATE")
     item = explanation_module().explain_result(result, run)
-    assert item["how_value_is_worked_out"] == "5,000 barrels x $80.00 per barrel = $400,000.00. This is the value of the one extra confirmation."
+    assert item["how_value_is_worked_out"] == "5,000 barrels × $80.00 per barrel = $400,000.00. This is the value of the one extra confirmation."
     assert len(item["displayed_operands"]) == 2
     assert_checked(item, result)
 

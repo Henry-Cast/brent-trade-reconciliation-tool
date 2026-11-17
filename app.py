@@ -133,7 +133,9 @@ def render_summary(run):
     for column, label, key in zip(columns,
                                    ["Trades processed", "Matched trades", "Established pairs", "Review groups"],
                                    ["trades_processed", "matched_trades", "matched_pairs", "review_groups"]):
-        column.metric(label, summary[key])
+        singular_labels = {"trades_processed": "Trade processed", "matched_trades": "Matched trade",
+                           "matched_pairs": "Established pair", "review_groups": "Review group"}
+        column.metric(singular_labels[key] if summary[key] == 1 else label, summary[key])
     with st.container(key="total_value"):
         st.markdown("""<style>
         .st-key-total_value [data-testid="stMetricValue"],
@@ -182,7 +184,7 @@ def render_exceptions(run):
     st.subheader("Exceptions")
     st.download_button("Download exceptions report (CSV)", explain.report_csv(run),
                        file_name="exceptions_report.csv", mime="text/csv", key="download_exceptions")
-    st.caption("Values are measures for investigation, not a loss, P&L or money owed. Values for different break types use different bases and should not be added together.")
+    st.caption("Values are measures for investigation, not a loss, P&L or money owed. They use different bases by break type, so the total shows the scale of what needs checking, not a single economic figure.")
     if not run["results"]:
         st.success("No exceptions were reported by this tool.")
         return
@@ -215,7 +217,9 @@ def render_exceptions(run):
         """Label a selectable exception with the actual engine type and involved IDs."""
         row = run["results"][index]
         name = explain.FRIENDLY_NAMES.get(row["break_type"], "Needs manual review")
-        return f"{name} — trades {row['trade_id'] or 'none'}; confirmations {row['confirm_id'] or 'none'}"
+        trades = explain.count_noun(len(row['trade_id'].split(';')) if row['trade_id'] else 0, 'trade')
+        confirmations = explain.count_noun(len(row['confirm_id'].split(';')) if row['confirm_id'] else 0, 'confirmation')
+        return f"{name} — {trades} {row['trade_id'] or 'none'}; {confirmations} {row['confirm_id'] or 'none'}"
 
     chosen = st.selectbox("Exception to inspect", choices, format_func=describe, key="exception_index")
     row = run["results"][chosen]
@@ -235,7 +239,9 @@ def render_exceptions(run):
     st.subheader("Supporting records")
     st.write(detail["note"])
     if row["break_type"] == "DUPLICATE":
-        st.caption(f"{len(detail['confirmations'])} confirmations are linked to desk trade {row['trade_id']}.")
+        count = len(detail['confirmations'])
+        verb = "is" if count == 1 else "are"
+        st.caption(f"{count} {explain.count_noun(count, 'confirmation')} {verb} linked to desk trade {row['trade_id']}.")
     elif row["break_type"] == "MISSING_CONFIRMATION":
         st.caption("No confirmation to compare against.")
     elif row["break_type"] == "UNKNOWN_CONFIRMATION":
@@ -300,7 +306,8 @@ def main():
     input_controls()
     run = st.session_state.get("run")
     if run and run["origin"] == "generated":
-        st.caption(f"Example: {len(run['blotter'])} fictional trades with planted errors (dataset {run['seed']}).")
+        count = len(run['blotter'])
+        st.caption(f"Example: {count} fictional {explain.count_noun(count, 'trade')} with planted errors (dataset {run['seed']}).")
     elif run and st.session_state.get("active_choice") == "load_sample":
         st.caption("Small sample: 10 trades with three planted breaks.")
     elif st.session_state.get("active_choice") == "upload_own":

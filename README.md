@@ -34,7 +34,7 @@ A break can be a different price, quantity, buy/sell direction or delivery month
 
 Distinct matched trades and established pairs are different counts: duplicates can increase pairs without adding trades. Ambiguous groups retain all candidates for review, not an invented pairing. Review values are blank, not zero, and excluded from totals.
 
-The total value of discrepancy is mostly full-notional items, **not a loss or P&L**, actual economic damage or money owed. See [Reading results](docs/READING_RESULTS.md) for the six matching rules, unchanged A–D explanations, CSV details and valuation breakdown.
+The total value of discrepancy is mostly full-notional items, **not a loss or P&L**, actual economic damage or money owed. Values use different bases by break type, so the total shows the scale of what needs checking, not a single economic figure. See [Reading results](docs/READING_RESULTS.md) for the six matching rules, unchanged A–D explanations, CSV details and valuation breakdown.
 
 ## Limitations
 
@@ -46,7 +46,7 @@ The total value of discrepancy is mostly full-notional items, **not a loss or P&
 - Suggested actions are general demonstration guidance, not your firm's procedure. Check originals and follow your desk's procedure; copying a draft does not establish which record is correct.
 - Scope: Brent, USD, lots/barrels, specified tolerances and manually maintained aliases. Fees, commissions, other products, tonnes and unspecified economic disagreements are outside the rules; unsupported cases may error rather than receive invented classifications or values.
 - There is no account system, production security assessment, live feed or settlement connection. Do not upload confidential desk data to an unassessed host.
-- A confirmation that quotes the wrong desk trade reference is paired by that reference, so its differences are reported against the wrong trade and the right trade can appear missing. The tool warns but does not re-pair automatically.
+- A confirmation that quotes the wrong desk trade reference is paired by that reference, so its differences are reported against the wrong trade and the right trade can appear missing. The tool reports these as ordinary breaks and does not re-pair automatically; it only warns separately when a quoted reference is not in the blotter at all.
 - One unresolvable record (for example a misspelt counterparty not in the alias list) stops the whole run; the tool does not produce a partial report.
 - Duplicate handling does not distinguish a resent confirmation from an amendment or a separate trade; the desk's own process decides.
 

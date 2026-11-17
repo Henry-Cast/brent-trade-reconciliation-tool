@@ -147,7 +147,8 @@ The result retains the original pairing rule and separately records
 the desk's volume and price where specified. USD display is rounded only at the
 end, to cents with decimal half-up rounding. Do not call discrepancy value a
 realised loss or P&L, and do not assume separate overlapping field values can be
-added into a loss estimate.
+added into a loss estimate. The total shows the scale of what needs checking,
+not a single economic figure.
 
 ### 6. Account for leftovers and repeated confirmations
 

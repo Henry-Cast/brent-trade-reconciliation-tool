@@ -12,7 +12,7 @@ import subprocess
 import sys
 
 from src import reconcile
-from src.explain import FRIENDLY_NAMES
+from src.explain import FRIENDLY_NAMES, count_noun
 from src.normalise import (COMMON_COLUMNS, general_name, load_settings,
                            normalise_records, positive_decimal)
 
@@ -54,10 +54,13 @@ def scorecard_headline(measured):
     planted = totals["found"] + totals["missed"]
     incorrect = (", {} incorrectly labelled".format(totals["mislabelled"])
                  if totals["mislabelled"] else "")
-    return ("Found {found} of {planted} planted cases. {missed} missed, "
-            "{false_alarms} false alarms{incorrect}. "
-            "{correctly_quiet} harmless differences correctly left alone.").format(
-                planted=planted, incorrect=incorrect, **totals)
+    return ("Found {found} of {planted} planted {cases}. {missed} missed, "
+            "{false_alarms} false {alarms}{incorrect}. "
+            "{correctly_quiet} harmless {differences} correctly left alone.").format(
+                planted=planted, incorrect=incorrect,
+                cases=count_noun(planted, "case"),
+                alarms=count_noun(totals["false_alarms"], "alarm"),
+                differences=count_noun(totals["correctly_quiet"], "difference"), **totals)
 
 
 def friendly_scorecard_frame(rows):
