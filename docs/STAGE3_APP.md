@@ -76,6 +76,48 @@ algorithm. Volume differences highlight quantity and unit. Wrong contract months
 are labelled **Wrong delivery month**. Duplicate groups show all confirmations;
 reviews show every candidate and explicitly avoid choosing a pairing.
 
+## Plain-English explanations and downloads
+
+The results introduction counts **HIGH**, **STANDARD** and **REVIEW** items from
+the reported rows. **Start here** names the first three in the existing priority
+order; changing a table sort does not change those suggestions. A clean run says
+that all its trades agree and there is nothing to chase.
+
+Each selected exception has a friendly name beside its code and four parts
+below the highlighted original records: **A. What happened**, **B. How the value
+is worked out**, **C. Suggested next step**, and **D. Draft query to the broker**.
+Part A stands alone, including the trade's details where a specific desk trade
+exists. Already-reported differences for the exact same single trade and
+confirmation are counted without looking for any new pairing. Review groups
+retain all candidates and do not receive a guessed value.
+
+`src/explain.py` supplies fixed wording. It does not call AI, read answer keys,
+match records, classify differences or set monetary values. The adapter retains
+canonical records using the unchanged normaliser and a private snapshot of the
+same settings used for that run. Decimal checks verify displayed formula operands
+against the reported amount to the cent. Missing or inconsistent operands cause a
+warning in the server log and an amount-only fallback, never a disagreeing sum.
+Prices keep extra precision when two decimals would misstate an actual input.
+
+Part C has the caption **General guidance only. Follow your own desk's
+procedure.** Part D is a copyable box with **Draft only. Nothing is sent by this
+tool.** These are demonstration suggestions, not a firm's procedure or proof
+which record is correct. A blank reference never replaces the identifying date,
+counterparty, direction, month, volume and price in a draft.
+
+**Download exceptions report (CSV)** retains all original exception columns and
+adds `friendly_name`, `what_happened`, `how_value_is_worked_out` and
+`suggested_next_step`. The draft is not exported. Blank review values stay blank.
+The existing count-and-value table is unchanged. **How to read this** explains
+the value bases and cautions against treating the total as money payable.
+
+Under **Download sample files**, download either CSV pair:
+
+- `sample_data/clean/`: ten desk trades, ten confirmations, no exceptions.
+- `sample_data/with_breaks/`: the same ten desk trades; one price change, a
+  buy/sell flip on another confirmation, and removal of a third confirmation.
+  It reports exactly one PRICE, one SIDE and one MISSING_CONFIRMATION.
+
 ## Scorecard restrictions
 
 The **Scorecard** page appears only for a dataset generated in the current app
@@ -126,6 +168,8 @@ change. No Community Cloud deployment or future-hosting compatibility is claimed
 |---|---|
 | `app.py` | Streamlit controls, navigation, summaries, tables and highlighted record views. |
 | `app_support.py` | Validates uploads, owns temporary workspaces, calls the unchanged engine entrypoint and scorer, aggregates emitted values and prepares display metadata. |
+| `src/explain.py` | Fixed explanations, checked display sums, introductions, reading help and the enhanced exception CSV. |
+| `tests/test_explanation_ui.py` | All nine rendered explanation types, upload summaries, sample changes, captions and download contents. |
 | `scripts/generate_for_app.py` | Isolates the corrected generator's file paths in a separate process. |
 | `scripts/start_app.sh` | Starts the app with project-local caches and the unchanged project interpreter. |
 | `scripts/check_stage3_hashes.py` | Checks only the five protected engine/scorer hashes; writes `reports/expiry_realism/hash_check.txt`. |

@@ -153,7 +153,8 @@ def test_upload_calls_real_engine_without_answer_key(workspace, make_trade, make
     assert run["engine_summary"]["matched_pairs"] == 1
     folder = Path(run["folder"])
     assert folder.parent == workspace
-    assert {file.name for file in folder.iterdir()} == {"blotter.csv", "confirmations.csv", "results.csv", "matches.csv"}
+    assert {file.name for file in folder.iterdir()} == {
+        "blotter.csv", "confirmations.csv", "results.csv", "matches.csv", "settings.json"}
     assert (folder / "blotter.csv").read_bytes() == csv_bytes([trade])
     again = app.run_uploads(workspace, "x.csv", csv_bytes([trade]), "x.csv", csv_bytes([confirmation]))
     assert again["folder"] != run["folder"]

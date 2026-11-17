@@ -6,6 +6,7 @@ import pandas as pd
 import streamlit as st
 
 import app_support as support
+from src import explain
 
 SIMULATED_LABEL = "Prices are simulated, anchored to published Brent spot prices."
 SCORECARD_CAVEAT = ("Correct against its specification on generated data with known answers. "
@@ -33,12 +34,26 @@ def perform_run(action):
     """Keep failed actions from showing old results or exposing exception tracebacks."""
     clear_current_run()
     try:
-        with st.spinner("Preparing records and calling the existing engine..."):
+        with st.spinner("Preparing records and checking for differences..."):
             st.session_state["run"] = action(session_workspace())
     except support.AppInputError as error:
         st.session_state["error"] = str(error)
     except Exception:
         st.session_state["error"] = "This run could not be completed. Check your CSV files or try generating again."
+
+
+def render_sample_downloads():
+    """Display the included sample pairs as byte-for-byte downloads."""
+    with st.expander("Download sample files", expanded=False):
+        for sample, description in [
+                ("clean", "Clean: ten trades, no exceptions"),
+                ("with_breaks", "With three breaks: price, buy/sell and missing confirmation")]:
+            st.markdown("**" + description + "**")
+            for role in ["blotter", "confirmations"]:
+                path = Path(__file__).resolve().parent / "sample_data" / sample / (role + ".csv")
+                st.download_button("Download " + role + " CSV", path.read_bytes(),
+                                   file_name=sample + "_" + role + ".csv", mime="text/csv",
+                                   key="sample_" + sample + "_" + role, on_click="ignore")
 
 
 def input_controls():
@@ -67,6 +82,7 @@ def input_controls():
             resource = st.session_state.pop("_workspace", None)
             if resource is not None:
                 resource.cleanup()
+        render_sample_downloads()
 
 
 def render_retry_information(run):
@@ -86,6 +102,14 @@ def render_retry_information(run):
 
 def render_summary(run):
     """Show record counts and the engine-valued type breakdown beside the total."""
+    introduction = explain.results_summary(run)
+    st.text(introduction["text"])
+    if introduction["start_here"]:
+        st.markdown("**Start here:**")
+        for line in introduction["start_here"]:
+            st.text(line)
+    with st.expander("How to read this", expanded=False):
+        st.write(explain.reading_guide())
     summary = support.summarise(run)
     columns = st.columns(4)
     for column, label, key in zip(columns,
@@ -124,15 +148,18 @@ def record_table(records, id_column, highlights):
 def render_exceptions(run):
     """Sort existing exceptions without recalculating them and inspect original records side by side."""
     st.subheader("Exceptions")
+    st.download_button("Download exceptions report (CSV)", explain.report_csv(run),
+                       file_name="exceptions_report.csv", mime="text/csv", key="download_exceptions")
     if not run["results"]:
-        st.success("No exceptions were reported by the engine.")
+        st.success("No exceptions were reported by this tool.")
         return
     mode = st.selectbox("Sort exceptions", SORT_OPTIONS, key="sort_mode")
     rows = support.sort_exceptions(run["results"], mode)
     display = []
     for row in rows:
         amount = Decimal(row["value_of_discrepancy_usd"]) if row["value_of_discrepancy_usd"] else None
-        display.append({"Priority": row["priority"], "Break type": row["break_type"],
+        display.append({"Priority": row["priority"], "Name": explain.FRIENDLY_NAMES.get(row["break_type"], "Needs manual review"),
+                        "Break type": row["break_type"],
                         "Trade IDs": row["trade_id"], "Confirmation IDs": row["confirm_id"],
                         "Value of discrepancy (USD)": support.dollars(amount),
                         "Matching rule": row["matching_rule"], "Group": row.get("group_id", "")})
@@ -145,7 +172,8 @@ def render_exceptions(run):
     def describe(index):
         """Label a selectable exception with the actual engine type and involved IDs."""
         row = run["results"][index]
-        return f"{row['break_type']} — trades {row['trade_id'] or 'none'}; confirmations {row['confirm_id'] or 'none'}"
+        name = explain.FRIENDLY_NAMES.get(row["break_type"], "Needs manual review")
+        return f"{name} ({row['break_type']}) — trades {row['trade_id'] or 'none'}; confirmations {row['confirm_id'] or 'none'}"
 
     chosen = st.selectbox("Exception to inspect", choices, format_func=describe, key="exception_index")
     row = run["results"][chosen]
@@ -157,7 +185,7 @@ def render_exceptions(run):
     if detail["highlight_fields"]:
         st.caption("Highlighted fields: " + ", ".join(detail["highlight_fields"]))
     if row.get("group_id"):
-        st.caption("Engine group: " + row["group_id"] + ". All involved records are shown without selecting a preferred record.")
+        st.caption("Group: " + row["group_id"] + ". All involved records are shown without selecting a preferred record.")
     left, right = st.columns(2)
     with left:
         st.markdown("#### Blotter records")
@@ -165,6 +193,17 @@ def render_exceptions(run):
     with right:
         st.markdown("#### Confirmation records")
         record_table(detail["confirmations"], "confirm_id", detail["highlight_fields"])
+    wording = explain.explain_result(row, run)
+    st.caption(wording["friendly_name"] + " (" + row["break_type"] + ")")
+    for title, field in [("A. What happened", "what_happened"),
+                         ("B. How the value is worked out", "how_value_is_worked_out"),
+                         ("C. Suggested next step", "suggested_next_step")]:
+        st.subheader(title)
+        st.text(wording[field])
+    st.caption(explain.GUIDANCE_CAPTION)
+    st.subheader("D. Draft query to the broker")
+    st.code(wording["draft_query"], language=None, wrap_lines=True)
+    st.caption(explain.DRAFT_CAPTION)
 
 
 def render_scorecard(run):

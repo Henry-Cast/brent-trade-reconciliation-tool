@@ -19,9 +19,25 @@ Finding these differences before settlement gives operations time to ask the bro
 Open the live demo above, or start the app locally using the instructions below. Then choose either:
 
 - **Upload files:** use `sample_data/clean/blotter.csv` and `sample_data/clean/confirmations.csv`. This small pair contains ten clean trades and their ten confirmations. Click **Reconcile uploaded files**; the expected result is ten established pairs and no exceptions. Uploads do not have a known-answer scorecard, even when the files originally came from this generator.
+- **Try three breaks:** use the pair in `sample_data/with_breaks/`. It keeps the same ten desk trades, changes one confirmation's price, flips another confirmation's buy/sell direction and removes a third confirmation. Expect one price difference, one buy/sell mismatch and one missing confirmation. Both sample pairs are available under **Download sample files** in the app.
 - **Generate data:** leave the seed at **1** and click **Generate new dataset**. This creates a fictional example with deliberately planted disagreements and harmless differences. Use development seeds 1–5 when experimenting. A generated run offers a **Scorecard** page because the generator supplied known answers for that session.
 
 The summary separates the number of distinct matched trades from the number of established pairs: duplicate confirmations can increase pairs without adding desk trades. The exceptions table starts with high-priority items, supports value sorting, and shows both original records with affected fields highlighted. Ambiguous groups retain all candidates; the tool does not invent a pairing.
+
+## Read an exception
+
+Above the figures, a short introduction counts high-priority, standard and manual-review items. **Start here** lists the first three items in the existing priority order. Sorting the table does not change that introduction.
+
+Choose an exception to see a friendly name beside its code and four parts below the original records:
+
+- **A. What happened:** the trade details and the difference found.
+- **B. How the value is worked out:** the sum, checked against this tool's reported amount to the cent. If a checked sum is unavailable, the reported value is shown without one. Review items remain blank, not zero.
+- **C. Suggested next step:** general guidance to check the original record and resolve the difference.
+- **D. Draft query to the broker:** a copyable draft. Nothing is sent by this tool.
+
+The wording comes from fixed templates, not AI calls. Each description stands on its own. If the same explicitly identified trade and confirmation have other reported differences, the description says how many are listed separately. Prices normally have two decimals; extra precision is retained when rounding would misstate the supplied price.
+
+**Download exceptions report (CSV)** keeps every original exception column and adds a friendly name, what happened, how the value is worked out and the suggested next step. The draft stays in the app. **How to read this** explains the different value bases and blank review values.
 
 ## How the six matching rules work
 
@@ -80,6 +96,7 @@ These figures describe fictional examples only. A large total can reflect the va
 - **The same AI coding agent wrote the generator and the engine.** Their assumptions and mistakes can overlap. A separate scorer and stage reviews reduce some risks but do not make the generated benchmark independent evidence of real-world correctness.
 - **Seeds 6–20 are a reserved set, not an unseen benchmark.** They have been used earlier in this project. Passing another seed from the same constrained generator does not demonstrate generalisation to real trading data.
 - **Records have dates but no times.** The generator assumes expiry-day trades occur before the expiry cutoff. It cannot establish intraday order, timing or whether a particular real trade preceded expiry.
+- **Suggested actions are demonstration guidance, not a firm's procedure.** Check the original records and follow your own desk's procedure. Copying a draft does not establish which record is correct.
 - **Scope is narrow.** Brent examples use USD, lots/barrels, specified tolerances and a manually maintained alias list. Fees, commissions, other products, tonnes and unspecified economic disagreements are outside the rules. There is no account system, production security assessment, live feed or settlement connection. Do not upload confidential desk data to an unassessed host.
 
 For October 2026 the generator uses the tradable December 2026, January 2027 and February 2027 contracts. Its simulated month components are $0.00, −$0.15 and −$0.30 per barrel, with independent noise of up to $0.10 either way. Expiry dates come from a bounded local calendar, not a live holiday service; unsupported dates fail clearly. See `docs/EXPIRY_REALISM.md`.

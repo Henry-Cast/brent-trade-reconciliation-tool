@@ -12,7 +12,8 @@ import subprocess
 import sys
 
 from src import reconcile
-from src.normalise import COMMON_COLUMNS, general_name, positive_decimal
+from src.normalise import (COMMON_COLUMNS, general_name, load_settings,
+                           normalise_records, positive_decimal)
 
 ROOT = Path(__file__).resolve().parent
 
@@ -106,15 +107,27 @@ def _read_csv(path):
         return list(csv.DictReader(handle))
 
 
-def _reconcile_run(folder, blotter, confirmations, origin, seed, metadata):
-    """Invoke the frozen engine and retain its actual results in session memory."""
+def _reconcile_run(folder, blotter, confirmations, origin, seed, metadata, settings_path=None):
+    """Retain actual results and normaliser context using one private configuration."""
+    snapshot = folder / "settings.json"
+    source = ROOT / "settings.json" if settings_path is None else Path(settings_path)
+    if source.resolve() != snapshot.resolve():
+        shutil.copyfile(source, snapshot)
+    configuration = load_settings(snapshot)
     summary = reconcile.reconcile_files(folder / "blotter.csv", folder / "confirmations.csv",
-                                        folder / "results.csv", folder / "matches.csv")
+                                        folder / "results.csv", folder / "matches.csv",
+                                        settings=snapshot)
+    context = {"trades": {record["trade_id"]: record for record in
+                          normalise_records(blotter, "blotter", configuration)},
+               "confirmations": {record["confirm_id"]: record for record in
+                                 normalise_records(confirmations, "confirmations", configuration)},
+               "settings": configuration}
     return {"origin": origin, "seed": seed, "folder": str(folder),
             "blotter": blotter, "confirmations": confirmations,
             "results": _read_csv(folder / "results.csv"),
             "matches": _read_csv(folder / "matches.csv"),
-            "engine_summary": summary, "generation_metadata": metadata}
+            "engine_summary": summary, "generation_metadata": metadata,
+            "explanation_context": context}
 
 
 def run_uploads(workspace, blotter_name, blotter_bytes, confirmations_name, confirmations_bytes):
@@ -160,7 +173,8 @@ def run_generated(workspace, seed):
         folder.relative_to(run_folder)
         metadata = json.loads((folder / "generation_metadata.json").read_text(encoding="utf-8"))
         return _reconcile_run(folder, _read_csv(folder / "blotter.csv"),
-                              _read_csv(folder / "confirmations.csv"), "generated", seed, metadata)
+                              _read_csv(folder / "confirmations.csv"), "generated", seed, metadata,
+                              settings_path=run_folder / "settings.json")
     except subprocess.TimeoutExpired:
         raise AppInputError("Generation took too long. Try another seed.") from None
     except Exception as error:
@@ -203,7 +217,7 @@ def _amount(row):
         return None
     value = Decimal(str(text))
     if not value.is_finite():
-        raise AppInputError("Engine discrepancy amount must be finite.")
+        raise AppInputError("The reported discrepancy amount must be finite.")
     return value
 
 
@@ -286,13 +300,13 @@ def exception_details(run, row):
         confirms = [dict(record) for record in run["confirmations"] if record["confirm_id"].strip() in confirm_ids]
         if (trade_ids - {record["trade_id"].strip() for record in trades}
                 or confirm_ids - {record["confirm_id"].strip() for record in confirms}):
-            raise AppInputError("An engine-listed record is unavailable in session memory. Regenerate or upload again.")
+            raise AppInputError("A record listed by this tool is unavailable in session memory. Regenerate or upload again.")
         fields = {"price_usd_bbl": ["price_usd_bbl"], "volume_bbl": ["quantity", "unit"],
                   "side": ["side"], "contract_month": ["contract_month"],
                   "confirmation_count": ["trade_ref"], "pairing": []}
         affected = row.get("field_affected", "")
         highlight = fields.get(affected, [])
-        note = "Fields shown are declared by the reconciliation engine."
+        note = "Fields shown are reported by this tool."
         if affected == "confirmation_count":
             note = "All records in the confirmation group are shown; no original or extra confirmation is chosen."
         elif affected == "pairing":
@@ -300,7 +314,7 @@ def exception_details(run, row):
         elif affected == "record":
             canonical = ["trade_id", "confirm_id", "trade_ref"] + COMMON_COLUMNS
             highlight = [field for field in canonical if any(field in record for record in trades + confirms)]
-            note = "The engine reports a whole-record exception; all present canonical fields are shown."
+            note = "This tool reports a whole-record exception; all present input fields are shown."
         return {"blotter": trades, "confirmations": confirms, "highlight_fields": highlight, "note": note}
     except Exception as error:
         raise AppInputError("Cannot display exception details: {}".format(error)) from None
