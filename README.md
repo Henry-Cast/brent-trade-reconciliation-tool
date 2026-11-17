@@ -1,117 +1,59 @@
 # Brent Trade Reconciliation Tool
 
-**Built by Henry Cast**
+A demonstration tool for comparing a desk's trade blotter with broker confirmations before settlement. It finds disagreements for review; it does not amend trades, contact brokers or settle anything. **All supplied trades, people and firms are fictional.**
 
-**Live demo:** https://brent-trade-reconciliation.streamlit.app
-
-A teaching demonstration for checking a desk's trade blotter against broker confirmations before settlement. **All supplied trades, people and firms are fictional.**
+**Built by Henry Cast** · **Live demo:** https://brent-trade-reconciliation.streamlit.app
 
 **Prices are simulated, anchored to published Brent spot prices.**[1]
 
-## What is a break, and why check it before settlement?
+![Price-break review in this tool](docs/price-break.png)
 
-A break is a disagreement between the desk's record and the broker's confirmation: for example, a different price, quantity, buy/sell direction or delivery month. A missing confirmation or an extra copy also needs attention.
+## Measured results: November 13, 2026
 
-Finding these differences before settlement gives operations time to ask the broker, correct the agreed record and check the intended position. This tool produces a review queue; it does not amend trades, contact a broker, settle anything or determine what money is owed.
+Retained expiry-corrected evaluation only; each seeded dataset has 200 desk trades and 202 confirmations.
 
-## Try it
+- Development seeds 1–5: **160 positive cases found**, 75 harmless cases correctly quiet; zero missed cases, false alarms or wrong labels.
+- Reserved seeds 6–20: **480 positive cases found**, 225 harmless cases correctly quiet; zero missed cases, false alarms or wrong labels. Combined: **640 found**, 300 correctly quiet across 20 datasets.
+- Every seeded dataset: **32 of 32** positive cases found and **15** correctly quiet. The separate clean control: **200 established pairs and no exceptions**; precision and recall are undefined because it has no labelled positives.
 
-Open the live demo above, or start the app locally using the instructions below. Then choose either:
-
-- **Upload files:** use `sample_data/clean/blotter.csv` and `sample_data/clean/confirmations.csv`. This small pair contains ten clean trades and their ten confirmations. Click **Reconcile uploaded files**; the expected result is ten established pairs and no exceptions. Uploads do not have a known-answer scorecard, even when the files originally came from this generator.
-- **Try three breaks:** use the pair in `sample_data/with_breaks/`. It keeps the same ten desk trades, changes one confirmation's price, flips another confirmation's buy/sell direction and removes a third confirmation. Expect one price difference, one buy/sell mismatch and one missing confirmation. Both sample pairs are available under **Download sample files** in the app.
-- **Generate data:** leave the seed at **1** and click **Generate new dataset**. This creates a fictional example with deliberately planted disagreements and harmless differences. Use development seeds 1–5 when experimenting. A generated run offers a **Scorecard** page because the generator supplied known answers for that session.
-
-The summary separates the number of distinct matched trades from the number of established pairs: duplicate confirmations can increase pairs without adding desk trades. The exceptions table starts with high-priority items, supports value sorting, and shows both original records with affected fields highlighted. Ambiguous groups retain all candidates; the tool does not invent a pairing.
-
-## Read an exception
-
-Above the figures, a short introduction counts high-priority, standard and manual-review items. **Start here** lists the first three items in the existing priority order. Sorting the table does not change that introduction.
-
-Choose an exception to see a friendly name beside its code and four parts below the original records:
-
-- **A. What happened:** the trade details and the difference found.
-- **B. How the value is worked out:** the sum, checked against this tool's reported amount to the cent. If a checked sum is unavailable, the reported value is shown without one. Review items remain blank, not zero.
-- **C. Suggested next step:** general guidance to check the original record and resolve the difference.
-- **D. Draft query to the broker:** a copyable draft. Nothing is sent by this tool.
-
-The wording comes from fixed templates, not AI calls. Each description stands on its own. If the same explicitly identified trade and confirmation have other reported differences, the description says how many are listed separately. Prices normally have two decimals; extra precision is retained when rounding would misstate the supplied price.
-
-**Download exceptions report (CSV)** keeps every original exception column and adds a friendly name, what happened, how the value is worked out and the suggested next step. The draft stays in the app. **How to read this** explains the different value bases and blank review values.
-
-## How the six matching rules work
-
-The rules run in this order; no AI model is called during reconciliation.
-
-1. **Put both records on the same basis.** Read dates, tidy spaces and capitals, map reviewed counterparty aliases, and convert lots to barrels. One Brent lot is 1,000 barrels. This prevents a different spelling or unit representation from looking like a different trade.
-2. **Use the trade reference first.** If the broker quotes a desk trade ID that exists in the blotter, link the records. Linking is not agreement: the fields are still checked afterwards, and repeated confirmations are retained.
-3. **Match unlinked records by their details.** Look for the same date, counterparty, buy/sell direction, delivery month, barrel volume and price. Prices within $0.01 per barrel count as equal; volume must agree exactly. A unique candidate can be linked. Equally plausible candidates go to review, not a guess.
-4. **Look for a one-field near match.** For records still unlinked, keep the date and counterparty fixed and allow exactly one of direction, month, volume or price to differ. A unique candidate can be linked so the disagreement can be reported. Multiple plausible candidates go to review.
-5. **Check each established pair.** Compare its fields under the stated tolerances and record the disagreements. Equivalent lots/barrels and price rounding within tolerance are not breaks.
-6. **Report what remains and what is repeated.** A desk trade without a confirmation is missing; a confirmation without a desk trade is unknown. Multiple confirmations for one desk trade are reported as duplicates. Unresolved groups remain separate review items.
-
-The shared tolerances and counterparty alias list are in `settings.json`; see `docs/SETTINGS.md`. Unsupported cases outside the written rules can stop with an error rather than receive an invented classification or valuation.
-
-## Latest measured results — generated data only
-
-These are the latest recorded scorecard measurements, not targets. The expiry-corrected evaluation was frozen on November 13, 2026. Each seeded file contains 200 desk trades and 202 confirmations; the clean control contains 200 of each.
-
-| Latest evaluation split | Datasets | Positive cases found | Missed | False alarms | Wrongly labelled | Harmless planted cases correctly left quiet |
-|---|---:|---:|---:|---:|---:|---:|
-| Development: seeds 1–5 | 5 | 160 | 0 | 0 | 0 | 75 |
-| Reserved: seeds 6–20 | 15 | 480 | 0 | 0 | 0 | 225 |
-| Combined | 20 | 640 | 0 | 0 | 0 | 300 |
-
-Every seeded dataset measured **32 of 32** positive cases found and **15** correctly quiet cases. “Positive” includes correctly identifying the two ambiguous review groups per dataset; it does not mean those groups were resolved. The separate clean control produced **200 established pairs and no exceptions**. Its precision and recall are undefined because it contains no labelled positive cases.
-
-The measured tables are in `evidence/latest/`, including every seed, per-type scores, rule traces and the valuation breakdown.
+Positive cases include two ambiguous review groups per dataset: found does not mean resolved. Detailed tables remain in `evidence/latest/`.
 
 > Correct against its specification on generated data with known answers. Not evidence of production readiness.
 
-## Read the value of discrepancy carefully
+## Try it
 
-The total value of discrepancy is mostly full-notional items, **not a loss or P&L**. For a missing, unknown or duplicate confirmation, and for a wrong delivery month, the specification assigns the whole trade's notional value. A side disagreement uses twice the notional; price and volume disagreements use different bases. Adding these figures does not produce an estimate of actual economic damage or money payable.
+- **See an example (200 trades)** opens a fictional dataset with planted disagreements and harmless differences. Its known answers support a **Scorecard**.
+- **Try a small sample with three breaks** runs the supplied ten-trade sample directly: one price difference, one buy/sell mismatch and one missing confirmation. This direct sample has no scorecard.
+- **Upload your own files** accepts a blotter and confirmations. Uploads have no known-answer scorecard, including supplied sample files.
 
-The app therefore shows counts and values by break type beside the total. Review items have a **blank value**, not zero, and are excluded from the total. The latest all-20-dataset breakdown is:
+**Change dataset** stays collapsed until you open it. Use development seeds 1–5 when experimenting.
 
-| Break type | Count | Value of discrepancy (USD) |
-|---|---:|---:|
-| Ambiguous groups for review | 40 |  |
-| Wrong delivery month | 80 | $695,718,150.00 |
-| Duplicate confirmations | 60 | $483,708,200.00 |
-| Missing confirmations | 80 | $653,262,300.00 |
-| Price | 120 | $3,748,750.00 |
-| Quantity | 100 | $1,015,756,200.00 |
-| Buy/sell direction | 60 | $769,265,000.00 |
-| Unit error | 40 | $259,599,890.25 |
-| Unknown confirmations | 60 | $525,665,000.00 |
-| **Total, excluding blank review values** | | **$4,406,723,490.25** |
+## Read the results
 
-These figures describe fictional examples only. A large total can reflect the valuation convention rather than a large difference in prices.
+A break can be a different price, quantity, buy/sell direction or delivery month, a missing confirmation or a duplicate. Start with the high-priority items, then select an exception to read A–D: what happened, the value calculation, a suggested next step and a draft broker query. The original records are supporting detail below. Nothing is sent.
+
+Distinct matched trades and established pairs are different counts: duplicates can increase pairs without adding trades. Ambiguous groups retain all candidates for review, not an invented pairing. Review values are blank, not zero, and excluded from totals.
+
+The total value of discrepancy is mostly full-notional items, **not a loss or P&L**, actual economic damage or money owed. See [Reading results](docs/READING_RESULTS.md) for the six matching rules, unchanged A–D explanations, CSV details and valuation breakdown.
 
 ## Limitations
 
-- **All supplied and measured trades are generated.** This has not been validated against a trading desk's real blotter or broker confirmations. Uploaded files are not independently known-answer tests.
-- **Spot prices are not futures prices.** Across the same 22 October 2026 dates, EIA spot averaged $123.93/bbl versus $104.73/bbl in ICE’s public historical chart for the fixed January 2027 Brent contract: a monthly-mean gap of $19.20/bbl, roughly $20 higher.[2][3] This is a fixed-contract, date-matched chart comparison—not verified official settlements or a rolling front-month series—and it does not imply a $20 gap on every day. The generator uses the EIA spot observation for each date, then small simulated month adjustments and noise; it is not calibrated to ICE futures.
-- **The same AI coding agent wrote the generator and the engine.** Their assumptions and mistakes can overlap. A separate scorer and stage reviews reduce some risks but do not make the generated benchmark independent evidence of real-world correctness.
-- **Seeds 6–20 are a reserved set, not an unseen benchmark.** They have been used earlier in this project. Passing another seed from the same constrained generator does not demonstrate generalisation to real trading data.
-- **Records have dates but no times.** The generator assumes expiry-day trades occur before the expiry cutoff. It cannot establish intraday order, timing or whether a particular real trade preceded expiry.
-- **Suggested actions are demonstration guidance, not a firm's procedure.** Check the original records and follow your own desk's procedure. Copying a draft does not establish which record is correct.
-- **Scope is narrow.** Brent examples use USD, lots/barrels, specified tolerances and a manually maintained alias list. Fees, commissions, other products, tonnes and unspecified economic disagreements are outside the rules. There is no account system, production security assessment, live feed or settlement connection. Do not upload confidential desk data to an unassessed host.
+- All supplied and measured trades are generated; this tool has not been validated on real desk blotters or broker confirmations. Uploads are not independent known-answer tests.
+- Spot prices are not futures prices. Across the same 22 October 2026 dates, EIA spot averaged $123.93/bbl versus $104.73/bbl in ICE’s public historical chart for the fixed January 2027 Brent contract: a monthly-mean gap of $19.20/bbl, roughly $20 higher.[2], [3] This fixed-contract, date-matched chart comparison is neither verified official settlements nor a rolling front-month series; it does not imply a $20 gap every day. This tool adds simulated month adjustments and noise to each date's EIA spot observation, without calibration to ICE futures.
+- The same AI coding agent wrote both this tool's fictional-data creation and reconciliation code; shared assumptions and mistakes can overlap. Separate scoring and stage reviews reduce some risks but do not make this benchmark independent real-world evidence.
+- Reserved seeds 6–20 were seen earlier, not an unseen benchmark. More seeds from this constrained source do not establish real-data generalisation.
+- Records have dates, not times. This tool assumes expiry-day trades precede the cutoff; it cannot establish intraday order, timing or real pre-expiry eligibility. Expiry uses a bounded local calendar, not a live holiday service; unsupported dates fail clearly.
+- Suggested actions are general demonstration guidance, not your firm's procedure. Check originals and follow your desk's procedure; copying a draft does not establish which record is correct.
+- Scope: Brent, USD, lots/barrels, specified tolerances and manually maintained aliases. Fees, commissions, other products, tonnes and unspecified economic disagreements are outside the rules; unsupported cases may error rather than receive invented classifications or values.
+- There is no account system, production security assessment, live feed or settlement connection. Do not upload confidential desk data to an unassessed host.
 
-For October 2026 the generator uses the tradable December 2026, January 2027 and February 2027 contracts. Its simulated month components are $0.00, −$0.15 and −$0.30 per barrel, with independent noise of up to $0.10 either way. Expiry dates come from a bounded local calendar, not a live holiday service; unsupported dates fail clearly. See `docs/EXPIRY_REALISM.md`.
+## Authorship and local use
 
-## How it was built
+Henry Cast specified, directed and tested this tool; the code was written with an AI coding agent, and each stage was independently reviewed before the next began.
 
-Henry Cast specified, directed and tested this tool; the code was written with an AI coding agent, and each stage was independently reviewed before the next began. These were project-stage reviews, not production certification. The generator, reconciliation engine and independent scoring step were built in stages; the interface calls the existing engine rather than implementing a second matcher. Reconciliation uses ordinary deterministic Python and exact decimal arithmetic, not AI/LLM calls.
+Stage reviews are not production certification. This tool uses deterministic Python and exact decimal arithmetic, not AI/LLM calls; explanations use fixed templates.
 
-Five engine/scorer files remain protected by their original hashes. Automated tests cover input validation, matching, discrepancy values, generated known-answer cases and the interface.
-
-## Run it locally
-
-Use **Python 3.14**. The app is tested locally on macOS; other operating systems have not been separately validated.
-
-Open a terminal in the project folder. On macOS/Linux:
+Use Python 3.14. Only macOS has been tested locally; Linux and Windows have not been separately validated. From the project folder on macOS/Linux:
 
 ```bash
 python3.14 -m venv .venv
@@ -120,17 +62,9 @@ python -m pip install -r requirements.txt
 streamlit run app.py
 ```
 
-Open the local address printed by Streamlit. Stop it with **Ctrl+C**. Linux uses the same commands but has not been separately exercised; Windows needs its platform's virtual-environment activation command and has not been tested.
+Windows needs its own virtual-environment activation command. Open Streamlit's printed local address; stop with Ctrl+C. No API key, custom startup script, workbook or price download is needed. [Reading results](docs/READING_RESULTS.md#local-checks-and-session-files) includes test commands.
 
-No custom startup script or API key is required. Runtime packages are pinned in `requirements.txt`; test tools are separate:
-
-```bash
-python -m pip install -r requirements-dev.txt
-python -m pytest
-python scripts/check_stage3_hashes.py
-```
-
-The app creates private per-session temporary folders under ignored `.app_sessions/`. Files are not durable storage; sessions may disappear when the process or host stops. Generated examples read the included `data/brent_spot.csv`, expiry-calendar JSON and settings. No Excel workbook or price download is needed.
+Private per-session workspaces in ignored `.app_sessions/` are ephemeral, not durable storage; sessions may disappear when the process or host stops.
 
 ## Data credit and licence
 
@@ -140,15 +74,13 @@ Source: U.S. Energy Information Administration (Nov 2026).[1]
 
 EIA credits Refinitiv as the underlying spot-price source.[4]
 
-The expiry calendar cites ICE's Brent contract specification and expiry listing.[5][6] Calendar facts do not turn the simulated prices into observed futures settlements.
+The expiry calendar cites ICE's contract specification and expiry listing.[5], [6] Calendar facts do not make simulated prices observed futures settlements.
 
-The project's own code is available under the **MIT licence** in `LICENSE`. Copyright (c) 2026 Henry Cast. Third-party data and reference materials retain their own applicable terms; this project does not relicense them as MIT.
+The project's own code uses the **MIT licence** in `LICENSE`. Copyright (c) 2026 Henry Cast. Third-party data and references retain their applicable terms; they are not relicensed as MIT.
 
-## Sources
-
-[1] https://www.eia.gov/dnav/pet/hist/RBRTEd.htm — EIA — Europe Brent Spot Price FOB: daily observations
-[2] https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=RBRTE&f=M — EIA — Europe Brent Spot Price FOB: monthly averages
-[3] https://www.ice.com/products/219/Brent-Crude-Futures/data — ICE — Brent Crude Futures: public prices and charts
-[4] https://www.eia.gov/dnav/pet/pet_pri_spt_s1_d.htm — EIA — Petroleum spot prices and Refinitiv source credit
-[5] https://www.ice.com/products/219/Brent-Crude-Futures — ICE — Brent Crude Futures: contract specification
-[6] https://www.ice.com/products/219/Brent-Crude-Futures/expiry — ICE — Brent Crude Futures: expiry dates
+[1]: https://www.eia.gov/dnav/pet/hist/RBRTEd.htm
+[2]: https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=RBRTE&f=M
+[3]: https://www.ice.com/products/219/Brent-Crude-Futures/data
+[4]: https://www.eia.gov/dnav/pet/pet_pri_spt_s1_d.htm
+[5]: https://www.ice.com/products/219/Brent-Crude-Futures
+[6]: https://www.ice.com/products/219/Brent-Crude-Futures/expiry

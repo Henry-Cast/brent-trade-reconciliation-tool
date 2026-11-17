@@ -47,16 +47,18 @@ def test_initial_screen_has_required_label_and_no_scorecard(app_test):
     at = app_test.run()
     assert not at.exception
     assert any(LABEL in item.value for item in at.caption)
-    assert at.radio(key="input_mode").options == ["Upload files", "Generate data"]
+    assert {"see_example", "load_sample", "upload_own"} <= {button.key for button in at.button}
     assert at.radio(key="page").options == ["Reconciliation"]
 
 
 def generate(at, seed=1):
     """Use the real controls to generate and reconcile a dataset in this AppTest session."""
     at.run()
-    at.radio(key="input_mode").set_value("Generate data").run()
-    at.number_input(key="seed").set_value(seed).run()
-    at.button(key="generate").click().run(timeout=30)
+    if seed == 1:
+        at.button(key="see_example").click().run(timeout=30)
+    else:
+        at.number_input(key="seed").set_value(seed).run()
+        at.button(key="generate").click().run(timeout=30)
     return at
 
 
@@ -92,7 +94,7 @@ def test_switching_to_uploads_removes_generated_scores_and_stale_results(app_tes
     """A previous generated run cannot make user uploads eligible for measured scores."""
     at = generate(app_test)
     at.radio(key="page").set_value("Scorecard").run()
-    at.radio(key="input_mode").set_value("Upload files").run()
+    at.button(key="upload_own").click().run()
     assert not at.exception
     assert at.radio(key="page").options == ["Reconciliation"]
     assert at.session_state["run"] is None
@@ -111,7 +113,7 @@ def test_development_seed_retry_log_is_visible_without_an_exception(app_test, mo
     metadata = at.session_state["run"]["generation_metadata"]
     assert metadata["generation_attempts"] >= 2
     assert metadata["safety_rejections"][0] == {"attempt": 1, "reason": "deliberate UI safety rejection"}
-    assert any(f"{metadata['generation_attempts']} sampling attempts" in item.value for item in at.info)
+    assert any(f"{metadata['generation_attempts']} attempts" in item.value for item in at.info)
 
 
 def test_exception_details_use_engine_highlight_metadata(app_test):
@@ -121,7 +123,7 @@ def test_exception_details_use_engine_highlight_metadata(app_test):
     index = next(index for index, row in enumerate(run["results"]) if row["break_type"] == "PRICE")
     at.selectbox(key="exception_index").set_value(index).run()
     assert not at.exception
-    assert any("price_usd_bbl" in item.value for item in at.caption)
+    assert any("Differs: Price" == item.value for item in at.caption)
 
 
 def test_missing_temporary_workspace_recovers_as_a_fresh_session(app_test):
@@ -144,7 +146,7 @@ def test_generation_failure_is_a_plain_error_and_clears_old_results(app_test, mo
 
     def fail(*args, **kwargs):
         """Exercise the UI error boundary without making up a successful generator result."""
-        raise app_support.AppInputError("The generator could not create a safe dataset. Try another seed.")
+        raise app_support.AppInputError("This tool could not create a safe dataset. Try another seed.")
 
     monkeypatch.setattr(app_support, "run_generated", fail)
     at.button(key="generate").click().run()
@@ -213,6 +215,7 @@ def test_upload_bad_values_render_row_column_errors(app_test, monkeypatch, kind,
         confirmations = changed_csv(confirmations, column, value)
     uploaded_values(monkeypatch, blotter, confirmations)
     at = app_test.run()
+    at.button(key="upload_own").click().run()
     at.button(key="reconcile_uploads").click().run()
     assert not at.exception
     message = " ".join(item.value for item in at.error)
@@ -229,6 +232,7 @@ def test_successful_upload_renders_clean_engine_results_without_scores(app_test,
     uploaded_values(monkeypatch, (folder / "blotter.csv").read_bytes(),
                     (folder / "confirmations.csv").read_bytes())
     at = app_test.run()
+    at.button(key="upload_own").click().run()
     at.button(key="reconcile_uploads").click().run()
     assert not at.exception and not at.error
     assert at.session_state["run"]["origin"] == "uploaded"
@@ -249,6 +253,7 @@ def test_malformed_upload_shows_clear_error(app_test, monkeypatch, content, name
     valid = (ROOT / "data/generated/clean/confirmations.csv").read_bytes()
     uploaded_values(monkeypatch, content, valid, name)
     at = app_test.run()
+    at.button(key="upload_own").click().run()
     at.button(key="reconcile_uploads").click().run()
     assert not at.exception
     assert expected in " ".join(item.value for item in at.error).lower()

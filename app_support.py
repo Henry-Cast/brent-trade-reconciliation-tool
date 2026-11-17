@@ -12,10 +12,67 @@ import subprocess
 import sys
 
 from src import reconcile
+from src.explain import FRIENDLY_NAMES
 from src.normalise import (COMMON_COLUMNS, general_name, load_settings,
                            normalise_records, positive_decimal)
 
 ROOT = Path(__file__).resolve().parent
+
+FIELD_LABELS = {
+    "trade_id": "Trade ID", "confirm_id": "Confirmation ID",
+    "trade_ref": "Desk trade reference", "trade_date": "Trade date",
+    "trader": "Trader", "counterparty": "Counterparty", "broker": "Broker",
+    "side": "Buy/sell", "contract_month": "Delivery month",
+    "quantity": "Volume", "unit": "Unit", "price_usd_bbl": "Price in USD per barrel",
+}
+FIELD_DIFF_LABELS = dict(FIELD_LABELS, price_usd_bbl="Price", volume_bbl="Volume/Unit",
+                         confirmation_count="Confirmations", pairing="Pairing", record="Record")
+
+
+SCORE_COLUMN_LABELS = {
+    "case_type": "Case type", "found": "Found", "missed": "Missed",
+    "false_alarms": "False alarms", "mislabelled": "Incorrectly labelled",
+    "precision": "Share of flags that were correct", "recall": "Share of planted cases found",
+    "correctly_quiet": "Harmless differences correctly left alone",
+}
+NAME_COLUMN_LABELS = {"counterparty_resolution": "Name matching method", "count": "Count"}
+
+
+def pretty_case_name(code):
+    """Name an existing case for display without changing its classification."""
+    quiet_names = {"EQUIVALENT_UNITS": "Equivalent volumes in different units",
+                   "COUNTERPARTY_VARIANT": "Counterparty name variation",
+                   "ROUNDING": "Harmless rounding difference",
+                   "MISSING_TRADE_REF": "Missing desk trade reference"}
+    return FRIENDLY_NAMES.get(code, quiet_names.get(code, str(code).replace("_", " ").capitalize()))
+
+
+def scorecard_headline(measured):
+    """Summarise measured case counts, keeping quiet cases and false alarms separate."""
+    totals = {key: sum(int(row[key]) for row in measured["scores"])
+              for key in ("found", "missed", "mislabelled", "false_alarms", "correctly_quiet")}
+    planted = totals["found"] + totals["missed"] + totals["mislabelled"]
+    incorrect = (", {} incorrectly labelled".format(totals["mislabelled"])
+                 if totals["mislabelled"] else "")
+    return ("Found {found} of {planted} planted cases. {missed} missed, "
+            "{false_alarms} false alarms{incorrect}. "
+            "{correctly_quiet} harmless differences correctly left alone.").format(
+                planted=planted, incorrect=incorrect, **totals)
+
+
+def friendly_scorecard_frame(rows):
+    """Copy measured rows for display; retain column keys and every numeric value."""
+    import pandas as pd
+
+    name_methods = {"GENERAL_RULES": "Standard name rules", "ALIAS_TABLE": "Saved name aliases",
+                    "UNRESOLVED": "Not resolved"}
+    frame = pd.DataFrame([dict(row) for row in rows])
+    if "case_type" in frame:
+        frame["case_type"] = frame["case_type"].map(pretty_case_name)
+    if "counterparty_resolution" in frame:
+        frame["counterparty_resolution"] = frame["counterparty_resolution"].map(
+            lambda code: name_methods.get(code, pretty_case_name(code)))
+    return frame
 
 
 class AppInputError(ValueError):
@@ -144,6 +201,17 @@ def run_uploads(workspace, blotter_name, blotter_bytes, confirmations_name, conf
         raise AppInputError("Upload reconciliation stopped: {}".format(error)) from None
 
 
+def run_sample(workspace):
+    """Reconcile the included fixed sample through the unchanged upload boundary."""
+    source = ROOT / "sample_data" / "with_breaks"
+    try:
+        blotter = (source / "blotter.csv").read_bytes()
+        confirmations = (source / "confirmations.csv").read_bytes()
+    except OSError:
+        raise AppInputError("The included sample files are unavailable. Restore the sample files and try again.") from None
+    return run_uploads(workspace, "blotter.csv", blotter, "confirmations.csv", confirmations)
+
+
 def run_generated(workspace, seed):
     """Generate in an isolated run and reconcile without consulting its labels."""
     try:
@@ -165,10 +233,10 @@ def run_generated(workspace, seed):
         if not isinstance(message, dict):
             message = {}
         if process.returncode != 0:
-            reason = message.get("error", "The generator stopped before a safe dataset was available.")
+            reason = message.get("error", "This tool stopped before a safe dataset was available.")
             raise AppInputError("{} Try another seed.".format(reason))
         if not isinstance(message.get("folder"), str):
-            raise AppInputError("The generator returned no usable dataset. Generate again.")
+            raise AppInputError("This tool returned no usable dataset. Generate again.")
         folder = Path(message["folder"]).resolve()
         folder.relative_to(run_folder)
         metadata = json.loads((folder / "generation_metadata.json").read_text(encoding="utf-8"))
@@ -306,15 +374,15 @@ def exception_details(run, row):
                   "confirmation_count": ["trade_ref"], "pairing": []}
         affected = row.get("field_affected", "")
         highlight = fields.get(affected, [])
-        note = "Fields shown are reported by this tool."
+        note = "The differing fields are marked below."
         if affected == "confirmation_count":
-            note = "All records in the confirmation group are shown; no original or extra confirmation is chosen."
+            note = "All confirmations are shown; this tool has not chosen an original."
         elif affected == "pairing":
-            note = "No definite differing field or pairing is established; all candidate records are shown."
+            note = "These records need manual pairing; this tool has not chosen a pair."
         elif affected == "record":
             canonical = ["trade_id", "confirm_id", "trade_ref"] + COMMON_COLUMNS
             highlight = [field for field in canonical if any(field in record for record in trades + confirms)]
-            note = "This tool reports a whole-record exception; all present input fields are shown."
+            note = "The available records are shown below."
         return {"blotter": trades, "confirmations": confirms, "highlight_fields": highlight, "note": note}
     except Exception as error:
         raise AppInputError("Cannot display exception details: {}".format(error)) from None

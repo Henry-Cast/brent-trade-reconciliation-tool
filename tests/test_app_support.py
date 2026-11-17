@@ -384,7 +384,7 @@ def test_review_summary_and_details_survive_files_loss(workspace, make_trade, ma
     detail = app.exception_details(run, run["results"][0])
     assert detail["blotter"] == trades and detail["confirmations"] == confirms
     assert detail["highlight_fields"] == []
-    assert "no definite" in detail["note"].lower() and "pairing" in detail["note"].lower()
+    assert "not chosen a pair" in detail["note"].lower() and "manual pairing" in detail["note"].lower()
 
 
 def test_sort_modes_exact_decimal_and_source_indexes():
@@ -432,7 +432,7 @@ def test_duplicate_details_include_all_confirmations(workspace, make_trade, make
     detail = app.exception_details(run, run["results"][0])
     assert detail["confirmations"] == confirms
     assert detail["highlight_fields"] == ["trade_ref"]
-    assert "all records" in detail["note"].lower() and "original" in detail["note"].lower()
+    assert "all confirmations" in detail["note"].lower() and "not chosen an original" in detail["note"].lower()
 
 
 def test_record_details_and_invalidation(workspace, make_trade, make_confirmation):

@@ -119,9 +119,19 @@ def test_clean_summary_and_empty_csv_headers(make_trade, make_confirmation, engi
 def test_reading_guide_explains_different_bases_blank_review_and_not_a_loss():
     guide = explanation_module().reading_guide()
     assert isinstance(guide, str)
-    for word in ["break", "price", "volume", "twice", "month", "duplicate", "blank", "not a loss", "this tool"]:
+    for word in ["break", "different sums", "blank", "not zero", "not a loss", "desk", "lots", "barrels", "guidance", "not sent", "this tool"]:
         assert word in guide.lower()
     assert "the engine" not in guide.lower()
+    assert guide.splitlines() == [
+        "- A break is a difference or item that needs checking.",
+        "- Value of discrepancy is not a loss or an amount owed.",
+        "- Different break types use different sums. Read each explanation.",
+        "- A blank value means pairing needs manual review, not zero.",
+        "- Bought/sold describe the desk's direction; lots also show barrels.",
+        "- Suggested steps are general guidance; drafts are not sent by this tool.",
+    ]
+    assert len(guide.split()) <= 140
+    assert all(len(line.split()) <= 25 for line in guide.splitlines())
 
 
 def test_runtime_no_file_reads_no_network_no_input_mutation(make_trade, make_confirmation, engine_settings, monkeypatch):

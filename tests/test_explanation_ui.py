@@ -78,6 +78,7 @@ def test_uploaded_samples_have_explanations_and_complete_csv(app_test, monkeypat
     folder = ROOT / "sample_data" / sample
     uploaded_values(monkeypatch, (folder / "blotter.csv").read_bytes(), (folder / "confirmations.csv").read_bytes())
     at = app_test.run()
+    at.button(key="upload_own").click().run()
     at.button(key="reconcile_uploads").click().run()
     assert not at.exception and not at.error
     assert summary in "\n".join(item.value for item in at.text)

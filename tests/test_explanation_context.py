@@ -126,8 +126,12 @@ def test_detail_notes_use_plain_tool_wording(make_trade, make_confirmation, fiel
     row = {"trade_id": trade["trade_id"], "confirm_id": confirmation["confirm_id"],
            "field_affected": field}
     note = app.exception_details(run, row)["note"]
-    assert "this tool" in note.lower()
+    assert note == {
+        "price_usd_bbl": "The differing fields are marked below.",
+        "record": "The available records are shown below.",
+    }[field]
     assert "engine" not in note.lower()
+    assert "generator" not in note.lower()
 
 
 @pytest.mark.parametrize("operation", ["missing_record", "nonfinite_amount"])

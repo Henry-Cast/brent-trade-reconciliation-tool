@@ -273,19 +273,12 @@ def report_csv(run):
 def reading_guide():
     """Explain the report's differing value bases without implying realised outcomes."""
     return (
-        "A break is an item that needs checking: a difference between records, a missing or unknown confirmation, "
-        "a duplicate confirmation, or an unresolved pairing. This tool explains the items already reported; it does not guess pairings.\n\n"
-        "Value of discrepancy is not a loss. It is a measure for investigating a record difference, not a prediction of what will happen. "
-        "The value bases differ: a price difference uses the price gap times the desk's barrels; a volume or unit difference uses the barrel gap times the desk's price; "
-        "a buy/sell mismatch uses twice the desk's volume times its price. A wrong delivery month uses the full desk trade value. "
-        "Missing confirmations use the full desk trade value; unknown confirmations use the full confirmed trade value. "
-        "Duplicate confirmations use confirmation-side figures for the number of confirmations beyond the one expected. "
-        "These measures are not interchangeable, and several differences on one pair are listed separately.\n\n"
-        "A manual-review pairing has a blank value, not zero: this tool has not selected a pairing. "
-        "Checked sums use the exact numbers shown, keeping extra price digits where needed, and must equal the reported amount to the cent. "
-        "If a checked sum is unavailable, this tool shows the reported value without an unverified formula. "
-        "Bought and sold always describe the desk's direction. Lots are shown alongside their volume in barrels.\n\n"
-        + GUIDANCE_CAPTION + " " + DRAFT_CAPTION
+        "- A break is a difference or item that needs checking.\n"
+        "- Value of discrepancy is not a loss or an amount owed.\n"
+        "- Different break types use different sums. Read each explanation.\n"
+        "- A blank value means pairing needs manual review, not zero.\n"
+        "- Bought/sold describe the desk's direction; lots also show barrels.\n"
+        "- Suggested steps are general guidance; drafts are not sent by this tool."
     )
 
 
