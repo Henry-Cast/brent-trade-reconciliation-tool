@@ -56,25 +56,34 @@ def render_sample_downloads():
                                    key="sample_" + sample + "_" + role, on_click="ignore")
 
 
+def choose_input(choice, seed=1):
+    """Select the visible input route before its buttons are rendered."""
+    st.session_state["active_choice"] = choice
+    st.session_state["upload_open"] = choice == "upload_own"
+    if choice == "see_example":
+        st.session_state["seed"] = seed
+        perform_run(lambda workspace: support.run_generated(workspace, seed))
+    elif choice == "load_sample":
+        perform_run(support.run_sample)
+    else:
+        clear_current_run()
+
+
 def input_controls():
     """Offer three direct entry choices; keep optional dataset controls collapsed."""
     example, sample, upload = st.columns(3)
-    if example.button("See an example (200 trades)", key="see_example", type="primary", width="stretch"):
-        st.session_state["upload_open"] = False
-        st.session_state["seed"] = 1
-        perform_run(lambda workspace: support.run_generated(workspace, 1))
-    if sample.button("Try a small sample with three breaks", key="load_sample", width="stretch"):
-        st.session_state["upload_open"] = False
-        perform_run(support.run_sample)
-    if upload.button("Upload your own files", key="upload_own", width="stretch"):
-        clear_current_run()
-        st.session_state["upload_open"] = True
+    for column, key, label in [
+            (example, "see_example", "See an example (200 trades)"),
+            (sample, "load_sample", "Try a small sample with three breaks"),
+            (upload, "upload_own", "Upload your own files")]:
+        column.button(label, key=key, width="stretch",
+                      type="primary" if st.session_state.get("active_choice") == key else "secondary",
+                      on_click=choose_input, args=(key,))
     with st.expander("Change dataset", expanded=False):
         seed = st.number_input("Seed", min_value=0, max_value=2147483647,
                                value=1, step=1, key="seed", on_change=clear_current_run)
-        if st.button("Load dataset", key="generate"):
-            st.session_state["upload_open"] = False
-            perform_run(lambda workspace: support.run_generated(workspace, int(seed)))
+        st.button("Load dataset", key="generate", on_click=choose_input,
+                  args=("see_example", int(seed)))
     if st.session_state.get("upload_open", False):
         blotter = st.file_uploader("Blotter CSV", type=["csv"], key="blotter_upload", on_change=clear_current_run)
         confirmations = st.file_uploader("Confirmations CSV", type=["csv"], key="confirmations_upload", on_change=clear_current_run)
@@ -86,9 +95,12 @@ def input_controls():
         st.caption("Inputs and outputs stay in this session's temporary workspace.")
         if st.button("Clear session", key="clear_session"):
             clear_current_run()
+            st.session_state.pop("active_choice", None)
+            st.session_state["upload_open"] = False
             resource = st.session_state.pop("_workspace", None)
             if resource is not None:
                 resource.cleanup()
+            st.rerun()
         render_sample_downloads()
 
 
@@ -98,7 +110,7 @@ def render_retry_information(run):
         return
     metadata = run.get("generation_metadata") or {}
     attempts = metadata.get("generation_attempts", 1)
-    st.caption(f"Example dataset {run['seed']}.")
+
     if attempts > 1:
         st.info(f"This tool used {attempts} attempts to prepare the example. Earlier attempts did not pass its safety checks.")
         with st.expander("Dataset checks"):
@@ -221,7 +233,11 @@ def render_exceptions(run):
     st.caption(explain.DRAFT_CAPTION)
     st.subheader("Supporting records")
     st.write(detail["note"])
-    if detail["highlight_fields"]:
+    if row["break_type"] == "MISSING_CONFIRMATION":
+        st.caption("No confirmation to compare against.")
+    elif row["break_type"] == "UNKNOWN_CONFIRMATION":
+        st.caption("No desk trade to compare against.")
+    elif detail["highlight_fields"]:
         labels = list(dict.fromkeys(support.FIELD_DIFF_LABELS.get(field, support.FIELD_LABELS.get(field, field)) for field in detail["highlight_fields"]))
         st.caption("Differs: " + ", ".join(labels))
     left, right = st.columns(2)
@@ -280,6 +296,12 @@ def main():
         st.info("Temporary session files were cleared. Generate or upload a dataset again.")
     input_controls()
     run = st.session_state.get("run")
+    if run and run["origin"] == "generated":
+        st.caption(f"Example: {len(run['blotter'])} fictional trades with planted errors (dataset {run['seed']}).")
+    elif run and st.session_state.get("active_choice") == "load_sample":
+        st.caption("Small sample: 10 trades with three planted breaks.")
+    elif st.session_state.get("active_choice") == "upload_own":
+        st.caption("Your uploaded files.")
     pages = ["Reconciliation", "Scorecard"] if run and run["origin"] == "generated" else ["Reconciliation"]
     if st.session_state.get("page") not in pages:
         st.session_state["page"] = pages[0]
